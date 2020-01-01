@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoConverter", "VideoConverter\VideoConverter.csproj", "{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoConvertCore", "VideoConverterCore\VideoConvertCore.csproj", "{CBE856BD-EE89-415A-B7CA-5E5720C59A07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Debug|x64.ActiveCfg = Debug|x64
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Debug|x64.Build.0 = Debug|x64
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Release|x64.ActiveCfg = Release|x64
+		{E44CAAC8-0130-4BE2-A8E4-E8DDBF15CBA6}.Release|x64.Build.0 = Release|x64
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Debug|x64.Build.0 = Debug|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Release|x64.ActiveCfg = Release|Any CPU
+		{CBE856BD-EE89-415A-B7CA-5E5720C59A07}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {331B2F29-F0F7-4D94-89FD-8C5477B7CD72}
+	EndGlobalSection
+EndGlobal
