@@ -124,7 +124,7 @@
             // btnSaveFolder
             // 
             this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFolder.Location = new System.Drawing.Point(874, 57);
+            this.btnSaveFolder.Location = new System.Drawing.Point(873, 57);
             this.btnSaveFolder.Name = "btnSaveFolder";
             this.btnSaveFolder.Size = new System.Drawing.Size(35, 23);
             this.btnSaveFolder.TabIndex = 5;
@@ -410,8 +410,8 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiOpenExplorer,
-            this.tsmiPlay});
+            this.tsmiPlay,
+            this.tsmiOpenExplorer});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(176, 48);
             // 
