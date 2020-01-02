@@ -1,10 +1,6 @@
 ﻿using MediaToolkit;
 using MediaToolkit.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VideoConvertCore
 {
@@ -17,7 +13,7 @@ namespace VideoConvertCore
             {
                 if(_engine==null)
                 {
-                    return new Engine();
+                    _engine = new Engine();
                 }
                 return _engine;
             }

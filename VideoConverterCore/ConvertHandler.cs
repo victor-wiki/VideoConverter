@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace VideoConvertCore
@@ -303,7 +302,10 @@ namespace VideoConvertCore
                 if (timeItem != null && timeItem.Contains("="))
                 {
                     string time = timeItem.Split('=')[1].Trim();
-                    ts = TimeSpan.Parse(time);
+                    if(!time.StartsWith("-"))
+                    {
+                        ts = TimeSpan.Parse(time);
+                    }                    
                 }
             }
             return ts;
