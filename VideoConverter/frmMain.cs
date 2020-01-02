@@ -264,6 +264,7 @@ namespace VideoConverter
                 return;
             }
 
+            int finishCount = 0;
             Action showResult = () =>
             {
                 if (videoInfo != null && videoInfo.FilePath != null)
@@ -299,6 +300,11 @@ namespace VideoConverter
                             {
                                 this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
                             }
+
+                            if(v.TaskState==ConvertTaskState.Finished)
+                            {
+                                finishCount++;
+                            }
                         }
                     }
 
@@ -326,7 +332,7 @@ namespace VideoConverter
             {
                 this.btnExecute.Enabled = true;
 
-                if (this.chkShutdownAfterProcess.Checked)
+                if (this.chkShutdownAfterProcess.Checked && finishCount== this.lvMessage.Items.Count)
                 {
                     this.Shutdown();
                 }
