@@ -195,7 +195,7 @@ namespace VideoConverter
         private void chkCustom_CheckedChanged(object sender, EventArgs e)
         {
             this.btnCustomCmd.Enabled = this.chkCustom.Checked;
-            if(!this.chkCustom.Checked)
+            if (!this.chkCustom.Checked)
             {
                 this.convertHandler.Option.CustomCommand = "";
             }
@@ -301,7 +301,7 @@ namespace VideoConverter
                                 this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
                             }
 
-                            if(v.TaskState==ConvertTaskState.Finished)
+                            if (v.TaskState == ConvertTaskState.Finished)
                             {
                                 finishCount++;
                             }
@@ -332,7 +332,7 @@ namespace VideoConverter
             {
                 this.btnExecute.Enabled = true;
 
-                if (this.chkShutdownAfterProcess.Checked && finishCount== this.lvMessage.Items.Count)
+                if (this.chkShutdownAfterProcess.Checked && finishCount == this.lvMessage.Items.Count)
                 {
                     this.Shutdown();
                 }
@@ -375,6 +375,8 @@ namespace VideoConverter
                 }
             }
         }
+
+
 
         private void tsmiOpenExplorer_Click(object sender, EventArgs e)
         {
