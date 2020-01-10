@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace VideoConvertCore
@@ -13,6 +14,7 @@ namespace VideoConvertCore
         private IObserver<FeedbackInfo> observer;
         private string CurrentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private string toolFileName = "ffmpeg.exe";
+        private Regex errorRegex = new Regex("\\b(error|invalid)\\b");
         private List<Process> processes = new List<Process>();
 
         private Dictionary<string, string> dictFilePath = new Dictionary<string, string>();
@@ -174,13 +176,13 @@ namespace VideoConvertCore
                         while (File.Exists(targetFilePath))
                         {
                             targetFilePath = this.GetNewFilePath(targetFilePath);
-                        }                       
+                        }
 
                         File.Move(sourceFolderTargetFilePath, targetFilePath);
                     }
 
                     videoInfo.TargetFilePath = targetFilePath;
-                   
+
                     if (this.dictFileConverted[filePath] == ConvertTaskState.Running)
                     {
                         videoInfo.TaskState = ConvertTaskState.Finished;
@@ -237,7 +239,7 @@ namespace VideoConvertCore
 
             if (leftIndex > 0 && rightIndex == fileName.Length - 1)
             {
-                string numberStr = fileName.Substring(leftIndex + 1, rightIndex - leftIndex-1);
+                string numberStr = fileName.Substring(leftIndex + 1, rightIndex - leftIndex - 1);
                 int number = 0;
                 if (int.TryParse(numberStr, out number))
                 {
@@ -269,7 +271,9 @@ namespace VideoConvertCore
                         ConvertTaskState taskState = ConvertTaskState.Running;
 
                         bool hasError = false;
-                        if (data.Contains("invalid") || data.Contains("error"))
+
+                        MatchCollection matches = errorRegex.Matches(data);
+                        if (matches != null && matches.Count > 0)
                         {
                             hasError = true;
                             taskState = ConvertTaskState.Error;
@@ -281,10 +285,10 @@ namespace VideoConvertCore
                             if (this.dictFileConverted[filePath] == ConvertTaskState.Ready)
                             {
                                 this.dictFileConverted[filePath] = ConvertTaskState.Running;
-                                taskState= ConvertTaskState.Running;
+                                taskState = ConvertTaskState.Running;
                                 this.RunningCount++;
                             }
-                        }                        
+                        }
 
                         this.Feedback(new VideoInfo(args) { TaskState = taskState, CurrentTime = this.GetCurrentTime(e.Data) }, e.Data, false, hasError);
                     }
@@ -302,10 +306,10 @@ namespace VideoConvertCore
                 if (timeItem != null && timeItem.Contains("="))
                 {
                     string time = timeItem.Split('=')[1].Trim();
-                    if(!time.StartsWith("-"))
+                    if (!time.StartsWith("-"))
                     {
                         ts = TimeSpan.Parse(time);
-                    }                    
+                    }
                 }
             }
             return ts;
@@ -319,7 +323,7 @@ namespace VideoConvertCore
         public void Subscribe(IObserver<FeedbackInfo> observer)
         {
             this.observer = observer;
-        }       
+        }
 
         protected virtual void Feedback(VideoInfo info, string content, bool isDone = false, bool enableLog = true)
         {
@@ -354,13 +358,13 @@ namespace VideoConvertCore
                 }
             }
 
-            this.toolFilePaths.ForEach(item => 
+            this.toolFilePaths.ForEach(item =>
             {
-                if(File.Exists(item) && new FileInfo(item).FullName != new FileInfo(Path.Combine(this.CurrentFolder, this.toolFileName)).FullName)
+                if (File.Exists(item) && new FileInfo(item).FullName != new FileInfo(Path.Combine(this.CurrentFolder, this.toolFileName)).FullName)
                 {
                     File.Delete(item);
                 }
-            });            
+            });
         }
     }
 }
