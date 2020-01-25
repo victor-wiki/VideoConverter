@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\setting.ico" />
-    <Content Include="screenshot.png" />
     <None Include="Resources\main.ico" />
   </ItemGroup>
   <ItemGroup>
