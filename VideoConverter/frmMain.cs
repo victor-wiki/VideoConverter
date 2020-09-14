@@ -142,7 +142,7 @@ namespace VideoConverter
                     break;
             }
 
-            this.convertHandler.Option.SaveFolder = this.txtSaveFolder.Text;
+            this.convertHandler.Option.SaveFolder = saveFolder;
             this.convertHandler.Option.ResolutionWidth = width;
             this.convertHandler.Option.ResolutionHeight = height;
 

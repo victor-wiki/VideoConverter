@@ -39,11 +39,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 16);
+            this.label1.Location = new System.Drawing.Point(7, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "命令：";
+            this.label1.Text = "Command:";
             // 
             // txtCmd
             // 
@@ -51,9 +51,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCmd.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtCmd.Location = new System.Drawing.Point(60, 13);
+            this.txtCmd.Location = new System.Drawing.Point(69, 13);
             this.txtCmd.Name = "txtCmd";
-            this.txtCmd.Size = new System.Drawing.Size(637, 57);
+            this.txtCmd.Size = new System.Drawing.Size(628, 57);
             this.txtCmd.TabIndex = 1;
             this.txtCmd.Text = "";
             // 
@@ -82,7 +82,7 @@
             // btnSourceFilePath
             // 
             this.btnSourceFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSourceFilePath.Location = new System.Drawing.Point(60, 75);
+            this.btnSourceFilePath.Location = new System.Drawing.Point(69, 75);
             this.btnSourceFilePath.Name = "btnSourceFilePath";
             this.btnSourceFilePath.Size = new System.Drawing.Size(97, 23);
             this.btnSourceFilePath.TabIndex = 4;
