@@ -285,23 +285,37 @@ namespace VideoConverter
                                 item.SubItems[4].Tag = DateTime.Now;
                             }
 
+                            bool isFinished = false;
+
+                            if (videoInfo.TaskState == ConvertTaskState.Finished)
+                            {
+                                isFinished = true;
+
+                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.LightGreen;
+                            }
+                            else if (videoInfo.TaskState == ConvertTaskState.Error)
+                            {
+                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
+                            }
+
                             TimeSpan currentTime = videoInfo.CurrentTime;
+
                             if (currentTime != null && currentTime.TotalSeconds > 0)
                             {
                                 item.SubItems[3].Text = $"{currentTime.Hours.ToString().PadLeft(2, '0')}:{currentTime.Minutes.ToString().PadLeft(2, '0')}:{currentTime.Seconds.ToString().PadLeft(2, '0')}";
 
                                 double percent = (currentTime.TotalSeconds * 1.0) / v.Duration.TotalSeconds;
 
-                                item.SubItems[5].Text = (percent == (int)(percent))? percent.ToString("p0"):percent.ToString("p1");
-                            }
+                                if(isFinished)
+                                {
+                                    percent = 1;
+                                }
 
-                            if (videoInfo.TaskState == ConvertTaskState.Finished)
-                            {
-                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.LightGreen;
+                                item.SubItems[5].Text = (percent * 100 == (int)(percent * 100) || percent >= 1) ? percent.ToString("p0") : percent.ToString("p1");
                             }
-                            else if (videoInfo.TaskState == ConvertTaskState.Error)
+                            else if(isFinished)
                             {
-                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
+                                item.SubItems[5].Text = "100%";
                             }
 
                             if (v.TaskState == ConvertTaskState.Finished)
