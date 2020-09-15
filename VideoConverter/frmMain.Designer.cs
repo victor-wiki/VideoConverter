@@ -226,6 +226,7 @@
             this.colStartTime,
             this.colProgress});
             this.lvMessage.FullRowSelect = true;
+            this.lvMessage.GridLines = true;
             this.lvMessage.HideSelection = false;
             this.lvMessage.Location = new System.Drawing.Point(5, 183);
             this.lvMessage.Name = "lvMessage";
@@ -267,7 +268,6 @@
             // colProgress
             // 
             this.colProgress.Text = "Progress";
-            this.colProgress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnExecute
             // 
