@@ -67,8 +67,8 @@
             this.panelResolution = new System.Windows.Forms.Panel();
             this.panelQuality = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -98,13 +98,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFile.Location = new System.Drawing.Point(83, 31);
             this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(783, 21);
+            this.txtFile.Size = new System.Drawing.Size(785, 21);
             this.txtFile.TabIndex = 1;
             // 
             // btnSelectFile
             // 
             this.btnSelectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectFile.Location = new System.Drawing.Point(873, 29);
+            this.btnSelectFile.Location = new System.Drawing.Point(875, 29);
             this.btnSelectFile.Name = "btnSelectFile";
             this.btnSelectFile.Size = new System.Drawing.Size(35, 23);
             this.btnSelectFile.TabIndex = 2;
@@ -124,7 +124,7 @@
             // btnSaveFolder
             // 
             this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFolder.Location = new System.Drawing.Point(873, 57);
+            this.btnSaveFolder.Location = new System.Drawing.Point(875, 57);
             this.btnSaveFolder.Name = "btnSaveFolder";
             this.btnSaveFolder.Size = new System.Drawing.Size(35, 23);
             this.btnSaveFolder.TabIndex = 5;
@@ -138,7 +138,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSaveFolder.Location = new System.Drawing.Point(83, 58);
             this.txtSaveFolder.Name = "txtSaveFolder";
-            this.txtSaveFolder.Size = new System.Drawing.Size(783, 21);
+            this.txtSaveFolder.Size = new System.Drawing.Size(785, 21);
             this.txtSaveFolder.TabIndex = 4;
             // 
             // label3
@@ -229,7 +229,7 @@
             this.lvMessage.HideSelection = false;
             this.lvMessage.Location = new System.Drawing.Point(5, 183);
             this.lvMessage.Name = "lvMessage";
-            this.lvMessage.Size = new System.Drawing.Size(910, 211);
+            this.lvMessage.Size = new System.Drawing.Size(912, 211);
             this.lvMessage.TabIndex = 16;
             this.lvMessage.UseCompatibleStateImageBehavior = false;
             this.lvMessage.View = System.Windows.Forms.View.Details;
@@ -272,7 +272,7 @@
             // btnExecute
             // 
             this.btnExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecute.Location = new System.Drawing.Point(854, 154);
+            this.btnExecute.Location = new System.Drawing.Point(856, 154);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(55, 23);
             this.btnExecute.TabIndex = 17;
@@ -301,7 +301,7 @@
             // 
             this.chkCustom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCustom.AutoSize = true;
-            this.chkCustom.Location = new System.Drawing.Point(768, 159);
+            this.chkCustom.Location = new System.Drawing.Point(770, 159);
             this.chkCustom.Name = "chkCustom";
             this.chkCustom.Size = new System.Drawing.Size(15, 14);
             this.chkCustom.TabIndex = 22;
@@ -312,7 +312,7 @@
             // 
             this.btnCustomCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomCmd.Enabled = false;
-            this.btnCustomCmd.Location = new System.Drawing.Point(789, 154);
+            this.btnCustomCmd.Location = new System.Drawing.Point(791, 154);
             this.btnCustomCmd.Name = "btnCustomCmd";
             this.btnCustomCmd.Size = new System.Drawing.Size(59, 23);
             this.btnCustomCmd.TabIndex = 21;
@@ -324,7 +324,7 @@
             // 
             this.chkShutdownAfterProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShutdownAfterProcess.AutoSize = true;
-            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(769, 400);
+            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(771, 400);
             this.chkShutdownAfterProcess.Name = "chkShutdownAfterProcess";
             this.chkShutdownAfterProcess.Size = new System.Drawing.Size(138, 16);
             this.chkShutdownAfterProcess.TabIndex = 23;
@@ -337,7 +337,7 @@
             this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(915, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(917, 25);
             this.menuStrip1.TabIndex = 26;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -415,13 +415,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(176, 48);
             // 
-            // tsmiOpenExplorer
-            // 
-            this.tsmiOpenExplorer.Name = "tsmiOpenExplorer";
-            this.tsmiOpenExplorer.Size = new System.Drawing.Size(175, 22);
-            this.tsmiOpenExplorer.Text = "Open in explorer";
-            this.tsmiOpenExplorer.Click += new System.EventHandler(this.tsmiOpenExplorer_Click);
-            // 
             // tsmiPlay
             // 
             this.tsmiPlay.Name = "tsmiPlay";
@@ -429,11 +422,18 @@
             this.tsmiPlay.Text = "Play";
             this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
             // 
+            // tsmiOpenExplorer
+            // 
+            this.tsmiOpenExplorer.Name = "tsmiOpenExplorer";
+            this.tsmiOpenExplorer.Size = new System.Drawing.Size(175, 22);
+            this.tsmiOpenExplorer.Text = "Open in explorer";
+            this.tsmiOpenExplorer.Click += new System.EventHandler(this.tsmiOpenExplorer_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 418);
+            this.ClientSize = new System.Drawing.Size(917, 418);
             this.Controls.Add(this.panelQuality);
             this.Controls.Add(this.panelResolution);
             this.Controls.Add(this.cboVideoType);

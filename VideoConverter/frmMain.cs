@@ -289,7 +289,10 @@ namespace VideoConverter
                             if (currentTime != null && currentTime.TotalSeconds > 0)
                             {
                                 item.SubItems[3].Text = $"{currentTime.Hours.ToString().PadLeft(2, '0')}:{currentTime.Minutes.ToString().PadLeft(2, '0')}:{currentTime.Seconds.ToString().PadLeft(2, '0')}";
-                                item.SubItems[5].Text = ((currentTime.TotalSeconds * 1.0) / v.Duration.TotalSeconds).ToString("p0");
+
+                                double percent = (currentTime.TotalSeconds * 1.0) / v.Duration.TotalSeconds;
+
+                                item.SubItems[5].Text = (percent == (int)(percent))? percent.ToString("p0"):percent.ToString("p1");
                             }
 
                             if (videoInfo.TaskState == ConvertTaskState.Finished)
@@ -305,10 +308,10 @@ namespace VideoConverter
                             {
                                 finishCount++;
                             }
-                        }
+                        }                        
                     }
 
-                    this.lvMessage.Refresh();
+                    this.lvMessage.Update();
                 }
             };
 
@@ -360,7 +363,7 @@ namespace VideoConverter
 
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
-            this.lvMessage.Columns[1].Width = this.lvMessage.Width - this.initColumnWidthExludeMessage - 10;
+            this.lvMessage.Columns[1].Width = this.lvMessage.Width - this.initColumnWidthExludeMessage - 20;
         }
 
         private void lvMessage_MouseClick(object sender, MouseEventArgs e)

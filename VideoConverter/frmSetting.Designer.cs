@@ -97,7 +97,7 @@
             this.chkEnableDebug.Name = "chkEnableDebug";
             this.chkEnableDebug.Size = new System.Drawing.Size(96, 16);
             this.chkEnableDebug.TabIndex = 29;
-            this.chkEnableDebug.Text = "Enable debug";
+            this.chkEnableDebug.Text = "Enable Debug";
             this.chkEnableDebug.UseVisualStyleBackColor = true;
             // 
             // chkEnableLog
@@ -107,7 +107,7 @@
             this.chkEnableLog.Name = "chkEnableLog";
             this.chkEnableLog.Size = new System.Drawing.Size(84, 16);
             this.chkEnableLog.TabIndex = 28;
-            this.chkEnableLog.Text = "Enable log";
+            this.chkEnableLog.Text = "Enable Log";
             this.chkEnableLog.UseVisualStyleBackColor = true;
             // 
             // frmSetting
