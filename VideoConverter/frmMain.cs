@@ -51,6 +51,8 @@ namespace VideoConverter
 
         private void ConvertVideo()
         {
+            this.convertHandler.Clearup();
+
             string strFilePath = this.txtFile.Text;
             string saveFolder = this.txtSaveFolder.Text;
 
@@ -172,15 +174,16 @@ namespace VideoConverter
             {
                 DialogResult result = MessageBox.Show("There is running task, are you sure to exit?", "Confirm", MessageBoxButtons.YesNo);
 
-                if (result == DialogResult.Yes)
+                if (result != DialogResult.Yes)
                 {
-                    this.convertHandler.Terminate();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
+                    e.Cancel = true;                   
+                }                
             }
+
+            if(!e.Cancel)
+            {
+                this.convertHandler.Terminate();
+            }            
         }
 
         private void btnCustomCmd_Click(object sender, EventArgs e)
@@ -393,7 +396,6 @@ namespace VideoConverter
                 }
             }
         }
-
 
 
         private void tsmiOpenExplorer_Click(object sender, EventArgs e)

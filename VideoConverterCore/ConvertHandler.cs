@@ -187,7 +187,7 @@ namespace VideoConvertCore
                     {
                         videoInfo.TaskState = ConvertTaskState.Finished;
                         this.Feedback(videoInfo, "Finished", false, true);
-                        this.dictFileConverted[filePath] = ConvertTaskState.Finished;
+                        this.dictFileConverted[filePath] = ConvertTaskState.Finished;                       
                     }
 
                     if (this.FinishCount == this.FilePaths.Count)
@@ -215,11 +215,12 @@ namespace VideoConvertCore
             });
         }
 
-        private void Clearup()
+        public void Clearup()
         {
             this.dictFilePath.Clear();
             this.dictFileConverted.Clear();
             this.toolFilePaths.Clear();
+            this.processes.Clear();
         }
 
         private string GetNewFilePath(string filePath)
@@ -343,7 +344,7 @@ namespace VideoConvertCore
 
         public void Terminate()
         {
-            foreach (Process p in Process.GetProcesses())
+            foreach (Process p in this.processes)
             {
                 try
                 {
@@ -362,9 +363,15 @@ namespace VideoConvertCore
             {
                 if (File.Exists(item) && new FileInfo(item).FullName != new FileInfo(Path.Combine(this.CurrentFolder, this.toolFileName)).FullName)
                 {
-                    File.Delete(item);
+                    try
+                    {
+                        File.Delete(item);
+                    }
+                    catch (Exception ex)
+                    {                        
+                    }
                 }
             });
-        }
+        }       
     }
 }
