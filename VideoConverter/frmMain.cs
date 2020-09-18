@@ -411,9 +411,17 @@ namespace VideoConverter
             if (this.lvMessage.FocusedItem != null)
             {
                 VideoInfo videoInfo = this.lvMessage.FocusedItem.Tag as VideoInfo;
-                if (videoInfo != null && videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+
+                if (videoInfo != null)
                 {
-                    Process.Start(videoInfo.TargetFilePath);
+                    if(videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+                    {
+                        Process.Start(videoInfo.TargetFilePath);
+                    }
+                    else if(File.Exists(videoInfo.FilePath))
+                    {
+                        Process.Start(videoInfo.FilePath);
+                    }                   
                 }
             }
         }
@@ -428,10 +436,22 @@ namespace VideoConverter
             if (this.lvMessage.FocusedItem != null)
             {
                 VideoInfo videoInfo = this.lvMessage.FocusedItem.Tag as VideoInfo;
-                if (videoInfo != null && videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+
+                if (videoInfo != null)
                 {
+                    string filePath="";
+
+                    if(videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+                    {
+                        filePath = videoInfo.TargetFilePath;
+                    }
+                    else if(File.Exists(videoInfo.FilePath))
+                    {
+                        filePath = videoInfo.FilePath;
+                    }
+
                     string cmd = "explorer.exe";
-                    string arg = "/select," + videoInfo.TargetFilePath;
+                    string arg = "/select," + filePath;
                     Process.Start(cmd, arg);
                 }
             }
