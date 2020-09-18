@@ -69,6 +69,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRemoveSelected = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -411,23 +412,31 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiPlay,
-            this.tsmiOpenExplorer});
+            this.tsmiOpenExplorer,
+            this.tsmiRemoveSelected});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
             // 
             // tsmiPlay
             // 
             this.tsmiPlay.Name = "tsmiPlay";
-            this.tsmiPlay.Size = new System.Drawing.Size(175, 22);
+            this.tsmiPlay.Size = new System.Drawing.Size(180, 22);
             this.tsmiPlay.Text = "Play";
             this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
             // 
             // tsmiOpenExplorer
             // 
             this.tsmiOpenExplorer.Name = "tsmiOpenExplorer";
-            this.tsmiOpenExplorer.Size = new System.Drawing.Size(175, 22);
+            this.tsmiOpenExplorer.Size = new System.Drawing.Size(180, 22);
             this.tsmiOpenExplorer.Text = "Open in explorer";
             this.tsmiOpenExplorer.Click += new System.EventHandler(this.tsmiOpenExplorer_Click);
+            // 
+            // tsmiRemoveSelected
+            // 
+            this.tsmiRemoveSelected.Name = "tsmiRemoveSelected";
+            this.tsmiRemoveSelected.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRemoveSelected.Text = "Remove Seleted";
+            this.tsmiRemoveSelected.Click += new System.EventHandler(this.tsmiRemoveSelected_Click);
             // 
             // frmMain
             // 
@@ -519,6 +528,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenExplorer;
         private System.Windows.Forms.ToolStripMenuItem tsmiPlay;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemoveSelected;
     }
 }
 

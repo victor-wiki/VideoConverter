@@ -168,9 +168,10 @@ namespace VideoConverter
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.convertHandler.RunningCount > 0 && this.convertHandler.FinishCount < this.convertHandler.RunningCount)
+            if (this.convertHandler.RunningCount > 0 )
             {
                 DialogResult result = MessageBox.Show("There is running task, are you sure to exit?", "Confirm", MessageBoxButtons.YesNo);
+
                 if (result == DialogResult.Yes)
                 {
                     this.convertHandler.Terminate();
@@ -377,7 +378,7 @@ namespace VideoConverter
 
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
-            this.lvMessage.Columns[1].Width = this.lvMessage.Width - this.initColumnWidthExludeMessage - 20;
+            this.lvMessage.Columns[1].Width = this.lvMessage.Width - this.initColumnWidthExludeMessage - 25;
         }
 
         private void lvMessage_MouseClick(object sender, MouseEventArgs e)
@@ -439,6 +440,24 @@ namespace VideoConverter
         private void lvMessage_DoubleClick(object sender, EventArgs e)
         {
             this.PlayVideo();
+        }
+
+        private void tsmiRemoveSelected_Click(object sender, EventArgs e)
+        {
+            if (this.lvMessage.SelectedItems != null)
+            {
+                for (int i = this.lvMessage.SelectedItems.Count - 1; i >= 0; i--)
+                {
+                    VideoInfo videoInfo = this.lvMessage.Items[i].Tag as VideoInfo;
+
+                    if (videoInfo!= null && this.convertHandler.FilePaths.Contains(videoInfo.FilePath))
+                    {
+                        this.convertHandler.FilePaths.Remove(videoInfo.FilePath);
+                    }
+
+                    this.lvMessage.SelectedItems[i].Remove();
+                }
+            }
         }
     }
 
