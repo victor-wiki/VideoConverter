@@ -187,7 +187,7 @@ namespace VideoConvertCore
                     {
                         videoInfo.TaskState = ConvertTaskState.Finished;
                         this.Feedback(videoInfo, "Finished", false, true);
-                        this.dictFileConverted[filePath] = ConvertTaskState.Finished;                       
+                        this.dictFileConverted[filePath] = ConvertTaskState.Finished;
                     }
 
                     if (this.FinishCount == this.FilePaths.Count)
@@ -344,12 +344,28 @@ namespace VideoConvertCore
 
         public void Terminate()
         {
-            foreach (Process p in this.processes)
+            foreach (Process p in Process.GetProcesses())
             {
                 try
                 {
-                    if (this.toolFilePaths.Contains(p.MainModule.FileName) ||
-                    this.processes.Any(item => item != null && item.Id == p.Id))
+                    bool found = false;
+
+                    if (p.ProcessName == Path.GetFileNameWithoutExtension(this.toolFileName))
+                    {
+                        if (this.toolFilePaths.Contains(p.MainModule.FileName))
+                        {
+                            found = true;
+                        }
+                    }
+                    else if (p.ProcessName == "cmd")
+                    {
+                        if(this.processes.Any(item => item != null && item.Id == p.Id))
+                        {
+                            found = true;
+                        }
+                    }
+
+                    if (found)
                     {
                         p.Kill();
                     }
@@ -357,6 +373,10 @@ namespace VideoConvertCore
                 catch (Exception ex)
                 {
                 }
+            }
+            foreach (Process p in this.processes)
+            {
+
             }
 
             this.toolFilePaths.ForEach(item =>
@@ -368,10 +388,10 @@ namespace VideoConvertCore
                         File.Delete(item);
                     }
                     catch (Exception ex)
-                    {                        
+                    {
                     }
                 }
             });
-        }       
+        }
     }
 }
