@@ -70,6 +70,8 @@
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRemoveSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblFinished = new System.Windows.Forms.Label();
+            this.Finished = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -415,34 +417,56 @@
             this.tsmiOpenExplorer,
             this.tsmiRemoveSelected});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 70);
             // 
             // tsmiPlay
             // 
             this.tsmiPlay.Name = "tsmiPlay";
-            this.tsmiPlay.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPlay.Size = new System.Drawing.Size(175, 22);
             this.tsmiPlay.Text = "Play";
             this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
             // 
             // tsmiOpenExplorer
             // 
             this.tsmiOpenExplorer.Name = "tsmiOpenExplorer";
-            this.tsmiOpenExplorer.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenExplorer.Size = new System.Drawing.Size(175, 22);
             this.tsmiOpenExplorer.Text = "Open in explorer";
             this.tsmiOpenExplorer.Click += new System.EventHandler(this.tsmiOpenExplorer_Click);
             // 
             // tsmiRemoveSelected
             // 
             this.tsmiRemoveSelected.Name = "tsmiRemoveSelected";
-            this.tsmiRemoveSelected.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRemoveSelected.Size = new System.Drawing.Size(175, 22);
             this.tsmiRemoveSelected.Text = "Remove Seleted";
             this.tsmiRemoveSelected.Click += new System.EventHandler(this.tsmiRemoveSelected_Click);
+            // 
+            // lblFinished
+            // 
+            this.lblFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblFinished.AutoSize = true;
+            this.lblFinished.Location = new System.Drawing.Point(104, 401);
+            this.lblFinished.Name = "lblFinished";
+            this.lblFinished.Size = new System.Drawing.Size(23, 12);
+            this.lblFinished.TabIndex = 33;
+            this.lblFinished.Text = "0/0";
+            // 
+            // Finished
+            // 
+            this.Finished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Finished.AutoSize = true;
+            this.Finished.Location = new System.Drawing.Point(3, 401);
+            this.Finished.Name = "Finished";
+            this.Finished.Size = new System.Drawing.Size(95, 12);
+            this.Finished.TabIndex = 34;
+            this.Finished.Text = "Finished/Total:";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 418);
+            this.Controls.Add(this.Finished);
+            this.Controls.Add(this.lblFinished);
             this.Controls.Add(this.panelQuality);
             this.Controls.Add(this.panelResolution);
             this.Controls.Add(this.cboVideoType);
@@ -529,6 +553,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenExplorer;
         private System.Windows.Forms.ToolStripMenuItem tsmiPlay;
         private System.Windows.Forms.ToolStripMenuItem tsmiRemoveSelected;
+        private System.Windows.Forms.Label lblFinished;
+        private System.Windows.Forms.Label Finished;
     }
 }
 

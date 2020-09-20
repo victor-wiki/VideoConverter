@@ -97,7 +97,7 @@ namespace VideoConverter
                     li.SubItems[5].Text = "0%"; //Progress
                     li.BackColor = Color.White;
                 }
-            }
+            }           
 
             this.btnExecute.Enabled = false;
 
@@ -170,20 +170,20 @@ namespace VideoConverter
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.convertHandler.RunningCount > 0 )
+            if (this.convertHandler.RunningCount > 0)
             {
                 DialogResult result = MessageBox.Show("There is running task, are you sure to exit?", "Confirm", MessageBoxButtons.YesNo);
 
                 if (result != DialogResult.Yes)
                 {
-                    e.Cancel = true;                   
-                }                
+                    e.Cancel = true;
+                }
             }
 
-            if(!e.Cancel)
+            if (!e.Cancel)
             {
                 this.convertHandler.Terminate();
-            }            
+            }
         }
 
         private void btnCustomCmd_Click(object sender, EventArgs e)
@@ -273,63 +273,76 @@ namespace VideoConverter
             {
                 if (videoInfo != null && videoInfo.FilePath != null)
                 {
+                    int finishedCount = 0;
+
                     foreach (ListViewItem item in this.lvMessage.Items)
                     {
                         VideoInfo v = item.Tag as VideoInfo;
-                        if (v != null && v.FilePath == videoInfo.FilePath)
+
+                        if (v != null)
                         {
-                            v.TaskState = videoInfo.TaskState;
-                            v.TargetFilePath = videoInfo.TargetFilePath;
-
-                            item.SubItems[1].Text = feedback.Content;
-
-                            if (item.SubItems[4].Tag == null)
-                            {
-                                item.SubItems[4].Text = DateTime.Now.ToString("HH:mm:ss");
-                                item.SubItems[4].Tag = DateTime.Now;
-                            }
-
-                            bool isFinished = false;
-
-                            if (videoInfo.TaskState == ConvertTaskState.Finished)
-                            {
-                                isFinished = true;
-
-                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.LightGreen;
-                            }
-                            else if (videoInfo.TaskState == ConvertTaskState.Error)
-                            {
-                                this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
-                            }
-
-                            TimeSpan currentTime = videoInfo.CurrentTime;
-
-                            if (currentTime != null && currentTime.TotalSeconds > 0)
-                            {
-                                item.SubItems[3].Text = $"{currentTime.Hours.ToString().PadLeft(2, '0')}:{currentTime.Minutes.ToString().PadLeft(2, '0')}:{currentTime.Seconds.ToString().PadLeft(2, '0')}";
-
-                                double percent = (currentTime.TotalSeconds * 1.0) / v.Duration.TotalSeconds;
-
-                                if(isFinished)
-                                {
-                                    percent = 1;
-                                }
-
-                                item.SubItems[5].Text = (percent * 100 == (int)(percent * 100) || percent >= 1) ? percent.ToString("p0") : percent.ToString("p1");
-                            }
-                            else if(isFinished)
-                            {
-                                item.SubItems[5].Text = "100%";
-                            }
-
                             if (v.TaskState == ConvertTaskState.Finished)
                             {
                                 finishCount++;
                             }
-                        }                        
+
+                            if (v.FilePath == videoInfo.FilePath)
+                            {
+                                v.TaskState = videoInfo.TaskState;
+                                v.TargetFilePath = videoInfo.TargetFilePath;
+
+                                item.SubItems[1].Text = feedback.Content;
+
+                                if (item.SubItems[4].Tag == null)
+                                {
+                                    item.SubItems[4].Text = DateTime.Now.ToString("HH:mm:ss");
+                                    item.SubItems[4].Tag = DateTime.Now;
+                                }
+
+                                bool isFinished = false;
+
+                                if (videoInfo.TaskState == ConvertTaskState.Finished)
+                                {
+                                    isFinished = true;
+
+                                    this.lvMessage.Items[videoInfo.Name].BackColor = Color.LightGreen;
+                                }
+                                else if (videoInfo.TaskState == ConvertTaskState.Error)
+                                {
+                                    this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
+                                }
+
+                                TimeSpan currentTime = videoInfo.CurrentTime;
+
+                                if (currentTime != null && currentTime.TotalSeconds > 0)
+                                {
+                                    item.SubItems[3].Text = $"{currentTime.Hours.ToString().PadLeft(2, '0')}:{currentTime.Minutes.ToString().PadLeft(2, '0')}:{currentTime.Seconds.ToString().PadLeft(2, '0')}";
+
+                                    double percent = (currentTime.TotalSeconds * 1.0) / v.Duration.TotalSeconds;
+
+                                    if (isFinished)
+                                    {
+                                        percent = 1;
+                                    }
+
+                                    item.SubItems[5].Text = (percent * 100 == (int)(percent * 100) || percent >= 1) ? percent.ToString("p0") : percent.ToString("p1");
+                                }
+                                else if (isFinished)
+                                {
+                                    item.SubItems[5].Text = "100%";
+                                }
+
+                                if (v.TaskState == ConvertTaskState.Finished)
+                                {
+                                    finishCount++;
+                                }
+                            }
+                        }
                     }
 
                     this.lvMessage.Update();
+
+                    this.lblFinished.Text = $"{finishCount}/{this.lvMessage.Items.Count}";
                 }
             };
 
@@ -416,14 +429,14 @@ namespace VideoConverter
 
                 if (videoInfo != null)
                 {
-                    if(videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+                    if (videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
                     {
                         Process.Start(videoInfo.TargetFilePath);
                     }
-                    else if(File.Exists(videoInfo.FilePath))
+                    else if (File.Exists(videoInfo.FilePath))
                     {
                         Process.Start(videoInfo.FilePath);
-                    }                   
+                    }
                 }
             }
         }
@@ -441,13 +454,13 @@ namespace VideoConverter
 
                 if (videoInfo != null)
                 {
-                    string filePath="";
+                    string filePath = "";
 
-                    if(videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
+                    if (videoInfo.TaskState == ConvertTaskState.Finished && File.Exists(videoInfo.TargetFilePath))
                     {
                         filePath = videoInfo.TargetFilePath;
                     }
-                    else if(File.Exists(videoInfo.FilePath))
+                    else if (File.Exists(videoInfo.FilePath))
                     {
                         filePath = videoInfo.FilePath;
                     }
@@ -472,7 +485,7 @@ namespace VideoConverter
                 {
                     VideoInfo videoInfo = this.lvMessage.Items[i].Tag as VideoInfo;
 
-                    if (videoInfo!= null && this.convertHandler.FilePaths.Contains(videoInfo.FilePath))
+                    if (videoInfo != null && this.convertHandler.FilePaths.Contains(videoInfo.FilePath))
                     {
                         this.convertHandler.FilePaths.Remove(videoInfo.FilePath);
                     }
