@@ -487,7 +487,7 @@ namespace VideoConverter
 
                     if (videoInfo != null && this.convertHandler.FilePaths.Contains(videoInfo.FilePath))
                     {
-                        this.convertHandler.FilePaths.Remove(videoInfo.FilePath);
+                        this.convertHandler.RemoveFile(videoInfo.FilePath);
                     }
 
                     this.lvMessage.SelectedItems[i].Remove();

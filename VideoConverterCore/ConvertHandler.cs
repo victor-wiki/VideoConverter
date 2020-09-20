@@ -61,6 +61,19 @@ namespace VideoConvertCore
             }
         }
 
+        public void RemoveFile(string filePath)
+        {
+            if(this.FilePaths.Contains(filePath))
+            {
+                this.FilePaths.Remove(filePath);
+            }           
+
+            if(this.dictFileConverted.ContainsKey(filePath))
+            {
+                this.dictFileConverted.Remove(filePath);
+            }           
+        }
+
         private void Execute(string saveFolder, string filePath)
         {
             FileInfo file = new FileInfo(filePath);
