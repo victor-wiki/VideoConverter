@@ -15,7 +15,7 @@ namespace VideoConverter
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            this.InitControls();
+            this.InitControls();           
         }
 
         public frmMain()
@@ -483,7 +483,7 @@ namespace VideoConverter
             {
                 for (int i = this.lvMessage.SelectedItems.Count - 1; i >= 0; i--)
                 {
-                    VideoInfo videoInfo = this.lvMessage.Items[i].Tag as VideoInfo;
+                    VideoInfo videoInfo = this.lvMessage.SelectedItems[i].Tag as VideoInfo;
 
                     if (videoInfo != null && this.convertHandler.FilePaths.Contains(videoInfo.FilePath))
                     {

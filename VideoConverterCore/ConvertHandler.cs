@@ -15,7 +15,7 @@ namespace VideoConvertCore
         private string CurrentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private string toolFileName = "ffmpeg.exe";
         private Regex errorRegex = new Regex("\\b(error|invalid)\\b");
-        private List<Process> processes = new List<Process>();
+        private Dictionary<Process,string> processFiles = new Dictionary<Process, string>();
 
         private Dictionary<string, string> dictFilePath = new Dictionary<string, string>();
         private Dictionary<string, ConvertTaskState> dictFileConverted = new Dictionary<string, ConvertTaskState>();
@@ -25,8 +25,7 @@ namespace VideoConvertCore
         public ConvertSetting Setting = new ConvertSetting();
         public ConvertOption Option = new ConvertOption();
 
-        public List<string> FilePaths { get; set; } = new List<string>();
-        public List<Process> Processes { get { return this.processes; } }
+        public List<string> FilePaths { get; set; } = new List<string>();      
 
         public int RunningCount { get; private set; }
         public int FinishCount
@@ -127,9 +126,7 @@ namespace VideoConvertCore
             {
                 Process p = new Process();
 
-                this.processes.Add(p);
-
-                p.StartInfo.FileName = "cmd.exe";
+                this.processFiles.Add(p, filePath);              
 
                 string args = "";
 
@@ -147,38 +144,30 @@ namespace VideoConvertCore
                     };
 
                     args = $"-i \"{fileName}\" -c:v libx264 -crf {this.Option.Quality} {resolution} \"{targetFileName}\"";
-                }
-
-                string cmd = $"{this.toolFileName} {args}";
+                }                
 
                 videoInfo.TaskState = ConvertTaskState.Running;
-                this.Feedback(videoInfo, $"Run command:{cmd}", false, true);
-
-                p.StartInfo.Arguments = file.FullName;
-                p.ErrorDataReceived += P_ErrorDataReceived;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardInput = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.Start();
+                this.Feedback(videoInfo, $"Run command:{args}", false, true);
 
                 string folder = Path.GetDirectoryName(exeFilePath);
-                p.StandardInput.WriteLine(Path.GetPathRoot(folder).Trim('\\'));
-                p.StandardInput.WriteLine($"cd {folder}");
-                p.StandardInput.WriteLine(cmd);
+
+                p.StartInfo.WorkingDirectory = folder;
+                p.StartInfo.FileName = exeFilePath;
+                p.StartInfo.Arguments = args;
+                p.ErrorDataReceived += P_ErrorDataReceived;
+                p.StartInfo.UseShellExecute = false;          
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;            
+                p.Start();              
 
                 p.BeginErrorReadLine();
-
-                p.StandardInput.AutoFlush = true;
-                p.StandardInput.Flush();
-                p.StandardInput.Close();
+               
                 p.WaitForExit();
                 p.Close();
                 p.Dispose();
             };
 
-            var task = Task.Factory.StartNew(execCmd);
+            var task = Task.Factory.StartNew(execCmd);           
 
             task.ContinueWith(i =>
             {
@@ -233,7 +222,7 @@ namespace VideoConvertCore
             this.dictFilePath.Clear();
             this.dictFileConverted.Clear();
             this.toolFilePaths.Clear();
-            this.processes.Clear();
+            this.processFiles.Clear();
         }
 
         private string GetNewFilePath(string filePath)
@@ -270,10 +259,25 @@ namespace VideoConvertCore
                 Process process = sender as Process;
                 if (process != null)
                 {
-                    string args = process.StartInfo.Arguments;
-                    if (!string.IsNullOrEmpty(args))
+                    if (this.processFiles.ContainsKey(process))
                     {
-                        string filePath = args;
+                        string filePath = this.processFiles[process];
+
+                        if(!this.dictFileConverted.ContainsKey(filePath))
+                        {
+                            try
+                            {                            
+                                process.ErrorDataReceived -= this.P_ErrorDataReceived;                                
+                                process.Kill();                               
+                                this.processFiles.Remove(process);
+                                this.RunningCount--;
+                            }
+                            catch (Exception ex)
+                            {                                
+                            }
+
+                            return;
+                        }
 
                         string message = filePath + ":" + e.Data;
                         if (this.Setting.EnableDebug)
@@ -304,7 +308,7 @@ namespace VideoConvertCore
                             }
                         }
 
-                        this.Feedback(new VideoInfo(args) { TaskState = taskState, CurrentTime = this.GetCurrentTime(e.Data) }, e.Data, false, hasError);
+                        this.Feedback(new VideoInfo(filePath) { TaskState = taskState, CurrentTime = this.GetCurrentTime(e.Data) }, e.Data, false, hasError);
                     }
                 }
             }
@@ -361,36 +365,19 @@ namespace VideoConvertCore
             {
                 try
                 {
-                    bool found = false;
-
                     if (p.ProcessName == Path.GetFileNameWithoutExtension(this.toolFileName))
                     {
                         if (this.toolFilePaths.Contains(p.MainModule.FileName))
                         {
-                            found = true;
+                            p.Kill();
                         }
-                    }
-                    else if (p.ProcessName == "cmd")
-                    {
-                        if(this.processes.Any(item => item != null && item.Id == p.Id))
-                        {
-                            found = true;
-                        }
-                    }
-
-                    if (found)
-                    {
-                        p.Kill();
-                    }
+                    }           
                 }
                 catch (Exception ex)
                 {
                 }
             }
-            foreach (Process p in this.processes)
-            {
-
-            }
+          
 
             this.toolFilePaths.ForEach(item =>
             {
