@@ -268,13 +268,12 @@ namespace VideoConverter
                 return;
             }
 
-            int finishCount = 0;
+            int finishedCount = 0;
+
             Action showResult = () =>
             {
                 if (videoInfo != null && videoInfo.FilePath != null)
                 {
-                    int finishedCount = 0;
-
                     foreach (ListViewItem item in this.lvMessage.Items)
                     {
                         VideoInfo v = item.Tag as VideoInfo;
@@ -283,7 +282,7 @@ namespace VideoConverter
                         {
                             if (v.TaskState == ConvertTaskState.Finished)
                             {
-                                finishCount++;
+                                finishedCount++;
                             }
 
                             if (v.FilePath == videoInfo.FilePath)
@@ -334,7 +333,7 @@ namespace VideoConverter
 
                                 if (v.TaskState == ConvertTaskState.Finished)
                                 {
-                                    finishCount++;
+                                    finishedCount++;
                                 }
                             }
                         }
@@ -342,7 +341,7 @@ namespace VideoConverter
 
                     this.lvMessage.Update();
 
-                    this.lblFinished.Text = $"{finishCount}/{this.lvMessage.Items.Count}";
+                    this.lblFinished.Text = $"{finishedCount}/{this.lvMessage.Items.Count}";
                 }
             };
 
@@ -366,7 +365,7 @@ namespace VideoConverter
             {
                 this.btnExecute.Enabled = true;
 
-                if (this.chkShutdownAfterProcess.Checked && finishCount == this.lvMessage.Items.Count)
+                if (this.chkShutdownAfterProcess.Checked && finishedCount == this.lvMessage.Items.Count)
                 {
                     this.Shutdown();
                 }
