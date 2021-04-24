@@ -12,6 +12,7 @@ namespace VideoConverter
     {
         private ConvertHandler convertHandler = new ConvertHandler();
         private int initColumnWidthExludeMessage = 0;
+        private int finishedCount = 0;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -51,6 +52,7 @@ namespace VideoConverter
 
         private void ConvertVideo()
         {
+            this.finishedCount = 0;
             this.convertHandler.Clearup();
 
             string strFilePath = this.txtFile.Text;
@@ -266,9 +268,7 @@ namespace VideoConverter
             if (this.IsDisposed)
             {
                 return;
-            }
-
-            int finishedCount = 0;
+            }           
 
             Action showResult = () =>
             {
@@ -280,11 +280,6 @@ namespace VideoConverter
 
                         if (v != null)
                         {
-                            if (v.TaskState == ConvertTaskState.Finished)
-                            {
-                                finishedCount++;
-                            }
-
                             if (v.FilePath == videoInfo.FilePath)
                             {
                                 v.TaskState = videoInfo.TaskState;
@@ -303,6 +298,7 @@ namespace VideoConverter
                                 if (videoInfo.TaskState == ConvertTaskState.Finished)
                                 {
                                     isFinished = true;
+                                    this.finishedCount++;
 
                                     this.lvMessage.Items[videoInfo.Name].BackColor = Color.LightGreen;
                                 }
@@ -329,19 +325,14 @@ namespace VideoConverter
                                 else if (isFinished)
                                 {
                                     item.SubItems[5].Text = "100%";
-                                }
-
-                                if (v.TaskState == ConvertTaskState.Finished)
-                                {
-                                    finishedCount++;
-                                }
+                                }                                
                             }
                         }
                     }
 
                     this.lvMessage.Update();
 
-                    this.lblFinished.Text = $"{finishedCount}/{this.lvMessage.Items.Count}";
+                    this.lblFinished.Text = $"{this.finishedCount}/{this.lvMessage.Items.Count}";
                 }
             };
 
@@ -365,7 +356,7 @@ namespace VideoConverter
             {
                 this.btnExecute.Enabled = true;
 
-                if (this.chkShutdownAfterProcess.Checked && finishedCount == this.lvMessage.Items.Count)
+                if (this.chkShutdownAfterProcess.Checked && this.finishedCount == this.lvMessage.Items.Count)
                 {
                     this.Shutdown();
                 }
