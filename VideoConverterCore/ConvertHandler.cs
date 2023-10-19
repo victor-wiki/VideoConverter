@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace VideoConvertCore
         private string CurrentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private string toolFileName = "ffmpeg.exe";
         private Regex errorRegex = new Regex("\\b(error|invalid)\\b");
-        private Dictionary<Process,string> processFiles = new Dictionary<Process, string>();
+        private Dictionary<Process, string> processFiles = new Dictionary<Process, string>();
 
         private Dictionary<string, string> dictFilePath = new Dictionary<string, string>();
         private Dictionary<string, ConvertTaskState> dictFileConverted = new Dictionary<string, ConvertTaskState>();
@@ -24,8 +25,9 @@ namespace VideoConvertCore
 
         public ConvertSetting Setting = new ConvertSetting();
         public ConvertOption Option = new ConvertOption();
+        public string DefaultCommandTemplate;
 
-        public List<string> FilePaths { get; set; } = new List<string>();      
+        public List<string> FilePaths { get; set; } = new List<string>();
 
         public int RunningCount { get; private set; }
         public int FinishCount
@@ -43,34 +45,46 @@ namespace VideoConvertCore
         {
             foreach (string filePath in this.FilePaths)
             {
-                if (!this.dictFileConverted.ContainsKey(filePath))
-                {
-                    this.dictFileConverted.Add(filePath, ConvertTaskState.Ready);
-                }
-                else
-                {
-                    this.dictFileConverted[filePath] = ConvertTaskState.Ready;
-                }
+                this.AddFile(filePath);
             }
 
             var initItems = this.FilePaths.Take(this.Setting.TaskParallelLimit);
+
             foreach (var item in initItems)
             {
                 this.Execute(this.Option.SaveFolder, item);
             }
         }
 
+        public void AppendFile(string filePath)
+        {
+            this.FilePaths.Add(filePath);
+            this.AddFile(filePath);
+        }
+
+        private void AddFile(string filePath)
+        {
+            if (!this.dictFileConverted.ContainsKey(filePath))
+            {
+                this.dictFileConverted.Add(filePath, ConvertTaskState.Ready);
+            }
+            else
+            {
+                this.dictFileConverted[filePath] = ConvertTaskState.Ready;
+            }
+        }
+
         public void RemoveFile(string filePath)
         {
-            if(this.FilePaths.Contains(filePath))
+            if (this.FilePaths.Contains(filePath))
             {
                 this.FilePaths.Remove(filePath);
-            }           
+            }
 
-            if(this.dictFileConverted.ContainsKey(filePath))
+            if (this.dictFileConverted.ContainsKey(filePath))
             {
                 this.dictFileConverted.Remove(filePath);
-            }           
+            }
         }
 
         private void Execute(string saveFolder, string filePath)
@@ -126,7 +140,7 @@ namespace VideoConvertCore
             {
                 Process p = new Process();
 
-                this.processFiles.Add(p, filePath);              
+                this.processFiles.Add(p, filePath);
 
                 string args = "";
 
@@ -138,13 +152,34 @@ namespace VideoConvertCore
                 else
                 {
                     string resolution = "";
+
                     if (this.Option.ResolutionWidth.HasValue && this.Option.ResolutionHeight.HasValue)
                     {
                         resolution = $"-s {this.Option.ResolutionWidth.Value}x{this.Option.ResolutionHeight.Value}";
                     };
 
-                    args = $"-i \"{fileName}\" -c:v libx264 -crf {this.Option.Quality} {resolution} \"{targetFileName}\"";
-                }                
+                    if (!string.IsNullOrEmpty(this.DefaultCommandTemplate))
+                    {
+                        args = this.DefaultCommandTemplate
+                               .Replace("##SourceFile##", $"\"{fileName}\"")
+                               .Replace("##TargetFile##", $"\"{targetFileName}\"")
+                               .Replace("##ThreadNumber##", this.Setting.ThreadNumber.ToString())
+                               .Replace("##Quality##", this.Option.Quality.ToString())
+                               .Replace("##Resolution##", resolution)
+                               .Replace("##Encoder##", this.Option.Encoder);
+                    }
+                    else
+                    {
+                        string threadNumber = "";
+
+                        if (!this.Setting.UseDefaultThreadNumber)
+                        {
+                            threadNumber = $" -threads {this.Setting.ThreadNumber} ";
+                        }
+
+                        args = $"-i \"{fileName}\"{threadNumber}-c:v libx264 -crf {this.Option.Quality} {resolution} \"{targetFileName}\"";
+                    }
+                }
 
                 videoInfo.TaskState = ConvertTaskState.Running;
                 this.Feedback(videoInfo, $"Run command:{args}", false, true);
@@ -155,19 +190,19 @@ namespace VideoConvertCore
                 p.StartInfo.FileName = exeFilePath;
                 p.StartInfo.Arguments = args;
                 p.ErrorDataReceived += P_ErrorDataReceived;
-                p.StartInfo.UseShellExecute = false;          
+                p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.CreateNoWindow = true;            
-                p.Start();              
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
 
                 p.BeginErrorReadLine();
-               
+
                 p.WaitForExit();
                 p.Close();
                 p.Dispose();
             };
 
-            var task = Task.Factory.StartNew(execCmd);           
+            var task = Task.Factory.StartNew(execCmd);
 
             task.ContinueWith(i =>
             {
@@ -185,7 +220,7 @@ namespace VideoConvertCore
 
                     videoInfo.TargetFilePath = targetFilePath;
 
-                    if (this.dictFileConverted[filePath] == ConvertTaskState.Running)
+                    if (this.dictFileConverted.ContainsKey(filePath) && this.dictFileConverted[filePath] == ConvertTaskState.Running)
                     {
                         videoInfo.TaskState = ConvertTaskState.Finished;
                         this.Feedback(videoInfo, "Finished", false, true);
@@ -195,9 +230,16 @@ namespace VideoConvertCore
                     if (this.FinishCount == this.FilePaths.Count)
                     {
                         this.RunningCount = 0;
+
                         if (!isSameExeFolder)
                         {
-                            File.Delete(exeFilePath);
+                            try
+                            {
+                                File.Delete(exeFilePath);
+                            }
+                            catch (Exception ex)
+                            {                               
+                            }
                         }
 
                         this.Feedback(null, "Done", true, true);
@@ -206,11 +248,24 @@ namespace VideoConvertCore
                     }
                     else
                     {
-                        var fp = this.dictFileConverted.Skip(this.Setting.TaskParallelLimit).Where(item => item.Value == ConvertTaskState.Ready).FirstOrDefault();
-                        if (!string.IsNullOrEmpty(fp.Key))
+                        int runningCount = this.dictFileConverted.Count(item => item.Value == ConvertTaskState.Running);
+                        int takeCount = this.Setting.TaskParallelLimit - runningCount;
+
+                        if (takeCount > 0)
                         {
-                            this.dictFileConverted[fp.Key] = ConvertTaskState.Running;
-                            this.Execute(saveFolder, fp.Key);
+                            var fps = this.dictFileConverted.Where(item => item.Value == ConvertTaskState.Ready).Take(takeCount);
+
+                            if (fps.Any())
+                            {
+                                foreach (var fp in fps)
+                                {
+                                    if (!string.IsNullOrEmpty(fp.Key))
+                                    {
+                                        this.dictFileConverted[fp.Key] = ConvertTaskState.Running;
+                                        this.Execute(saveFolder, fp.Key);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -246,7 +301,7 @@ namespace VideoConvertCore
                 int number = 0;
                 if (int.TryParse(numberStr, out number))
                 {
-                    return $"{fileName.Substring(0, leftIndex)}({ number + 1})";
+                    return $"{fileName.Substring(0, leftIndex)}({number + 1})";
                 }
             }
             return fileName + "(1)";
@@ -263,17 +318,17 @@ namespace VideoConvertCore
                     {
                         string filePath = this.processFiles[process];
 
-                        if(!this.dictFileConverted.ContainsKey(filePath))
+                        if (!this.dictFileConverted.ContainsKey(filePath))
                         {
                             try
-                            {                            
-                                process.ErrorDataReceived -= this.P_ErrorDataReceived;                                
-                                process.Kill();                               
+                            {
+                                process.ErrorDataReceived -= this.P_ErrorDataReceived;
+                                process.Kill();
                                 this.processFiles.Remove(process);
                                 this.RunningCount--;
                             }
                             catch (Exception ex)
-                            {                                
+                            {
                             }
 
                             return;
@@ -371,13 +426,13 @@ namespace VideoConvertCore
                         {
                             p.Kill();
                         }
-                    }           
+                    }
                 }
                 catch (Exception ex)
                 {
                 }
             }
-          
+
 
             this.toolFilePaths.ForEach(item =>
             {
