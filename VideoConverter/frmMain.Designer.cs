@@ -50,7 +50,7 @@
             this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCurrentTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colStartTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colElapsedTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colProgress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnExecute = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -63,15 +63,19 @@
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cboQuality = new System.Windows.Forms.ComboBox();
             this.cboResolution = new System.Windows.Forms.ComboBox();
-            this.cboVideoType = new System.Windows.Forms.ComboBox();
+            this.cboFileType = new System.Windows.Forms.ComboBox();
             this.panelResolution = new System.Windows.Forms.Panel();
             this.panelQuality = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRemoveSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAppendFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.lblFinished = new System.Windows.Forms.Label();
             this.Finished = new System.Windows.Forms.Label();
+            this.cboEncoder = new System.Windows.Forms.ComboBox();
+            this.txtEncoder = new System.Windows.Forms.TextBox();
+            this.lblEncoder = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -147,7 +151,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 123);
+            this.label3.Location = new System.Drawing.Point(10, 122);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 12);
             this.label3.TabIndex = 6;
@@ -165,7 +169,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 157);
+            this.label4.Location = new System.Drawing.Point(27, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 11;
@@ -173,7 +177,7 @@
             // 
             // nudWidth
             // 
-            this.nudWidth.Location = new System.Drawing.Point(3, 3);
+            this.nudWidth.Location = new System.Drawing.Point(2, 2);
             this.nudWidth.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -197,7 +201,7 @@
             // 
             // nudQuality
             // 
-            this.nudQuality.Location = new System.Drawing.Point(3, 1);
+            this.nudQuality.Location = new System.Drawing.Point(3, 2);
             this.nudQuality.Maximum = new decimal(new int[] {
             51,
             0,
@@ -210,7 +214,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(60, 7);
+            this.label6.Location = new System.Drawing.Point(60, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(437, 12);
             this.label6.TabIndex = 15;
@@ -226,14 +230,14 @@
             this.colMessage,
             this.colDuration,
             this.colCurrentTime,
-            this.colStartTime,
+            this.colElapsedTime,
             this.colProgress});
             this.lvMessage.FullRowSelect = true;
             this.lvMessage.GridLines = true;
             this.lvMessage.HideSelection = false;
-            this.lvMessage.Location = new System.Drawing.Point(5, 183);
+            this.lvMessage.Location = new System.Drawing.Point(5, 201);
             this.lvMessage.Name = "lvMessage";
-            this.lvMessage.Size = new System.Drawing.Size(912, 211);
+            this.lvMessage.Size = new System.Drawing.Size(912, 239);
             this.lvMessage.TabIndex = 16;
             this.lvMessage.UseCompatibleStateImageBehavior = false;
             this.lvMessage.View = System.Windows.Forms.View.Details;
@@ -262,11 +266,11 @@
             this.colCurrentTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colCurrentTime.Width = 100;
             // 
-            // colStartTime
+            // colElapsedTime
             // 
-            this.colStartTime.Text = "Start Time";
-            this.colStartTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colStartTime.Width = 80;
+            this.colElapsedTime.Text = "Elapsed Time";
+            this.colElapsedTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colElapsedTime.Width = 90;
             // 
             // colProgress
             // 
@@ -275,7 +279,7 @@
             // btnExecute
             // 
             this.btnExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecute.Location = new System.Drawing.Point(856, 154);
+            this.btnExecute.Location = new System.Drawing.Point(856, 172);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(55, 23);
             this.btnExecute.TabIndex = 17;
@@ -304,7 +308,7 @@
             // 
             this.chkCustom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCustom.AutoSize = true;
-            this.chkCustom.Location = new System.Drawing.Point(770, 159);
+            this.chkCustom.Location = new System.Drawing.Point(770, 177);
             this.chkCustom.Name = "chkCustom";
             this.chkCustom.Size = new System.Drawing.Size(15, 14);
             this.chkCustom.TabIndex = 22;
@@ -315,7 +319,7 @@
             // 
             this.btnCustomCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomCmd.Enabled = false;
-            this.btnCustomCmd.Location = new System.Drawing.Point(791, 154);
+            this.btnCustomCmd.Location = new System.Drawing.Point(791, 172);
             this.btnCustomCmd.Name = "btnCustomCmd";
             this.btnCustomCmd.Size = new System.Drawing.Size(59, 23);
             this.btnCustomCmd.TabIndex = 21;
@@ -327,7 +331,7 @@
             // 
             this.chkShutdownAfterProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShutdownAfterProcess.AutoSize = true;
-            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(771, 400);
+            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(771, 446);
             this.chkShutdownAfterProcess.Name = "chkShutdownAfterProcess";
             this.chkShutdownAfterProcess.Size = new System.Drawing.Size(138, 16);
             this.chkShutdownAfterProcess.TabIndex = 23;
@@ -363,7 +367,7 @@
             // 
             this.cboQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboQuality.FormattingEnabled = true;
-            this.cboQuality.Location = new System.Drawing.Point(83, 154);
+            this.cboQuality.Location = new System.Drawing.Point(83, 149);
             this.cboQuality.Name = "cboQuality";
             this.cboQuality.Size = new System.Drawing.Size(77, 20);
             this.cboQuality.TabIndex = 28;
@@ -373,28 +377,28 @@
             // 
             this.cboResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboResolution.FormattingEnabled = true;
-            this.cboResolution.Location = new System.Drawing.Point(83, 122);
+            this.cboResolution.Location = new System.Drawing.Point(83, 119);
             this.cboResolution.Name = "cboResolution";
             this.cboResolution.Size = new System.Drawing.Size(77, 20);
             this.cboResolution.TabIndex = 29;
             this.cboResolution.SelectedIndexChanged += new System.EventHandler(this.cboResolution_SelectedIndexChanged);
             // 
-            // cboVideoType
+            // cboFileType
             // 
-            this.cboVideoType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboVideoType.FormattingEnabled = true;
-            this.cboVideoType.Location = new System.Drawing.Point(83, 88);
-            this.cboVideoType.Name = "cboVideoType";
-            this.cboVideoType.Size = new System.Drawing.Size(77, 20);
-            this.cboVideoType.TabIndex = 30;
-            this.cboVideoType.SelectedIndexChanged += new System.EventHandler(this.cboVideoType_SelectedIndexChanged);
+            this.cboFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFileType.FormattingEnabled = true;
+            this.cboFileType.Location = new System.Drawing.Point(83, 88);
+            this.cboFileType.Name = "cboFileType";
+            this.cboFileType.Size = new System.Drawing.Size(77, 20);
+            this.cboFileType.TabIndex = 30;
+            this.cboFileType.SelectedIndexChanged += new System.EventHandler(this.cboVideoType_SelectedIndexChanged);
             // 
             // panelResolution
             // 
             this.panelResolution.Controls.Add(this.nudHeight);
             this.panelResolution.Controls.Add(this.label5);
             this.panelResolution.Controls.Add(this.nudWidth);
-            this.panelResolution.Location = new System.Drawing.Point(172, 121);
+            this.panelResolution.Location = new System.Drawing.Point(171, 116);
             this.panelResolution.Name = "panelResolution";
             this.panelResolution.Size = new System.Drawing.Size(195, 26);
             this.panelResolution.TabIndex = 31;
@@ -404,7 +408,7 @@
             // 
             this.panelQuality.Controls.Add(this.label6);
             this.panelQuality.Controls.Add(this.nudQuality);
-            this.panelQuality.Location = new System.Drawing.Point(172, 153);
+            this.panelQuality.Location = new System.Drawing.Point(172, 147);
             this.panelQuality.Name = "panelQuality";
             this.panelQuality.Size = new System.Drawing.Size(575, 24);
             this.panelQuality.TabIndex = 32;
@@ -415,9 +419,10 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiPlay,
             this.tsmiOpenExplorer,
-            this.tsmiRemoveSelected});
+            this.tsmiRemoveSelected,
+            this.tsmiAppendFiles});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 92);
             // 
             // tsmiPlay
             // 
@@ -440,11 +445,18 @@
             this.tsmiRemoveSelected.Text = "Remove Seleted";
             this.tsmiRemoveSelected.Click += new System.EventHandler(this.tsmiRemoveSelected_Click);
             // 
+            // tsmiAppendFiles
+            // 
+            this.tsmiAppendFiles.Name = "tsmiAppendFiles";
+            this.tsmiAppendFiles.Size = new System.Drawing.Size(175, 22);
+            this.tsmiAppendFiles.Text = "Append Files";
+            this.tsmiAppendFiles.Click += new System.EventHandler(this.tsmiAppendFiles_Click);
+            // 
             // lblFinished
             // 
             this.lblFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFinished.AutoSize = true;
-            this.lblFinished.Location = new System.Drawing.Point(104, 401);
+            this.lblFinished.Location = new System.Drawing.Point(104, 447);
             this.lblFinished.Name = "lblFinished";
             this.lblFinished.Size = new System.Drawing.Size(23, 12);
             this.lblFinished.TabIndex = 33;
@@ -454,22 +466,52 @@
             // 
             this.Finished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Finished.AutoSize = true;
-            this.Finished.Location = new System.Drawing.Point(3, 401);
+            this.Finished.Location = new System.Drawing.Point(3, 447);
             this.Finished.Name = "Finished";
             this.Finished.Size = new System.Drawing.Size(95, 12);
             this.Finished.TabIndex = 34;
             this.Finished.Text = "Finished/Total:";
             // 
+            // cboEncoder
+            // 
+            this.cboEncoder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEncoder.FormattingEnabled = true;
+            this.cboEncoder.Location = new System.Drawing.Point(83, 177);
+            this.cboEncoder.Name = "cboEncoder";
+            this.cboEncoder.Size = new System.Drawing.Size(77, 20);
+            this.cboEncoder.TabIndex = 37;
+            this.cboEncoder.SelectedIndexChanged += new System.EventHandler(this.cboEncoder_SelectedIndexChanged);
+            // 
+            // txtEncoder
+            // 
+            this.txtEncoder.Location = new System.Drawing.Point(172, 176);
+            this.txtEncoder.Name = "txtEncoder";
+            this.txtEncoder.Size = new System.Drawing.Size(73, 21);
+            this.txtEncoder.TabIndex = 36;
+            this.txtEncoder.Visible = false;
+            // 
+            // lblEncoder
+            // 
+            this.lblEncoder.AutoSize = true;
+            this.lblEncoder.Location = new System.Drawing.Point(27, 181);
+            this.lblEncoder.Name = "lblEncoder";
+            this.lblEncoder.Size = new System.Drawing.Size(53, 12);
+            this.lblEncoder.TabIndex = 35;
+            this.lblEncoder.Text = "Encoder:";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 418);
+            this.ClientSize = new System.Drawing.Size(917, 464);
+            this.Controls.Add(this.cboEncoder);
+            this.Controls.Add(this.txtEncoder);
+            this.Controls.Add(this.lblEncoder);
             this.Controls.Add(this.Finished);
             this.Controls.Add(this.lblFinished);
             this.Controls.Add(this.panelQuality);
             this.Controls.Add(this.panelResolution);
-            this.Controls.Add(this.cboVideoType);
+            this.Controls.Add(this.cboFileType);
             this.Controls.Add(this.cboResolution);
             this.Controls.Add(this.cboQuality);
             this.Controls.Add(this.chkShutdownAfterProcess);
@@ -532,7 +574,7 @@
         private System.Windows.Forms.Button btnExecute;
         private System.Windows.Forms.ColumnHeader colFileName;
         private System.Windows.Forms.ColumnHeader colMessage;
-        private System.Windows.Forms.ColumnHeader colStartTime;
+        private System.Windows.Forms.ColumnHeader colElapsedTime;
         private System.Windows.Forms.ColumnHeader colCurrentTime;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtFileType;
@@ -544,7 +586,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ComboBox cboQuality;
         private System.Windows.Forms.ComboBox cboResolution;
-        private System.Windows.Forms.ComboBox cboVideoType;
+        private System.Windows.Forms.ComboBox cboFileType;
         private System.Windows.Forms.Panel panelResolution;
         private System.Windows.Forms.Panel panelQuality;
         private System.Windows.Forms.ColumnHeader colDuration;
@@ -555,6 +597,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiRemoveSelected;
         private System.Windows.Forms.Label lblFinished;
         private System.Windows.Forms.Label Finished;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAppendFiles;
+        private System.Windows.Forms.ComboBox cboEncoder;
+        private System.Windows.Forms.TextBox txtEncoder;
+        private System.Windows.Forms.Label lblEncoder;
     }
 }
 

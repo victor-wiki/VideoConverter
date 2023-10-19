@@ -34,7 +34,12 @@
             this.nudTaskParallelLimit = new System.Windows.Forms.NumericUpDown();
             this.chkEnableDebug = new System.Windows.Forms.CheckBox();
             this.chkEnableLog = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudThreadNumber = new System.Windows.Forms.NumericUpDown();
+            this.chkUseDefaultThreadNumber = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudTaskParallelLimit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudThreadNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -93,7 +98,7 @@
             // chkEnableDebug
             // 
             this.chkEnableDebug.AutoSize = true;
-            this.chkEnableDebug.Location = new System.Drawing.Point(14, 75);
+            this.chkEnableDebug.Location = new System.Drawing.Point(14, 112);
             this.chkEnableDebug.Name = "chkEnableDebug";
             this.chkEnableDebug.Size = new System.Drawing.Size(96, 16);
             this.chkEnableDebug.TabIndex = 29;
@@ -103,18 +108,73 @@
             // chkEnableLog
             // 
             this.chkEnableLog.AutoSize = true;
-            this.chkEnableLog.Location = new System.Drawing.Point(14, 39);
+            this.chkEnableLog.Location = new System.Drawing.Point(14, 76);
             this.chkEnableLog.Name = "chkEnableLog";
             this.chkEnableLog.Size = new System.Drawing.Size(84, 16);
             this.chkEnableLog.TabIndex = 28;
             this.chkEnableLog.Text = "Enable Log";
             this.chkEnableLog.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(157, 45);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(101, 12);
+            this.label9.TabIndex = 40;
+            this.label9.Text = "for each process";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Thread number:";
+            // 
+            // nudThreadNumber
+            // 
+            this.nudThreadNumber.Location = new System.Drawing.Point(103, 40);
+            this.nudThreadNumber.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudThreadNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudThreadNumber.Name = "nudThreadNumber";
+            this.nudThreadNumber.Size = new System.Drawing.Size(45, 21);
+            this.nudThreadNumber.TabIndex = 38;
+            this.nudThreadNumber.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chkUseDefaultThreadNumber
+            // 
+            this.chkUseDefaultThreadNumber.AutoSize = true;
+            this.chkUseDefaultThreadNumber.Location = new System.Drawing.Point(282, 45);
+            this.chkUseDefaultThreadNumber.Name = "chkUseDefaultThreadNumber";
+            this.chkUseDefaultThreadNumber.Size = new System.Drawing.Size(90, 16);
+            this.chkUseDefaultThreadNumber.TabIndex = 41;
+            this.chkUseDefaultThreadNumber.Text = "Use default";
+            this.chkUseDefaultThreadNumber.UseVisualStyleBackColor = true;
+            this.chkUseDefaultThreadNumber.CheckedChanged += new System.EventHandler(this.chkUseDefaultThreadNumber_CheckedChanged);
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 173);
+            this.Controls.Add(this.chkUseDefaultThreadNumber);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.nudThreadNumber);
             this.Controls.Add(this.chkEnableDebug);
             this.Controls.Add(this.chkEnableLog);
             this.Controls.Add(this.label8);
@@ -127,6 +187,7 @@
             this.Text = "Setting";
             this.Load += new System.EventHandler(this.frmSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudTaskParallelLimit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudThreadNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,5 +201,9 @@
         private System.Windows.Forms.NumericUpDown nudTaskParallelLimit;
         private System.Windows.Forms.CheckBox chkEnableDebug;
         private System.Windows.Forms.CheckBox chkEnableLog;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudThreadNumber;
+        private System.Windows.Forms.CheckBox chkUseDefaultThreadNumber;
     }
 }

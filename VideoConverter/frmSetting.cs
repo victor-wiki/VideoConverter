@@ -32,6 +32,9 @@ namespace VideoConverter
             setting.TaskParallelLimit = (int)this.nudTaskParallelLimit.Value;
             setting.EnableLog = this.chkEnableLog.Checked;
             setting.EnableDebug = this.chkEnableDebug.Checked;
+            setting.UseDefaultThreadNumber = this.chkUseDefaultThreadNumber.Checked;
+            setting.ThreadNumber = (int)this.nudThreadNumber.Value;
+
             SettingManager.SaveSetting(setting);
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -40,6 +43,11 @@ namespace VideoConverter
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void chkUseDefaultThreadNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            this.nudThreadNumber.Enabled = !this.chkUseDefaultThreadNumber.Checked;
         }
     }
 }
