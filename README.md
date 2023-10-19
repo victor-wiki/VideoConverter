@@ -3,4 +3,4 @@ Convert video to another type or change its resolution or quality. It bases on f
 ## UI
 ![UI Screenshot](https://github.com/victor-wiki/StaticResources/blob/master/StaticResources/images/projs/VideoConverter/screenshot.png?raw=true)
 
-***Note***: You'd better use the latest ffmpeg.exe from the [offical website](https://ffmpeg.org/) to replace the one which is used in the project.
+***Note***: You need to download the "ffmpeg.exe" from the [offical website](https://ffmpeg.org/) to locate it under the folder "VideoConverterCore" and include it to the project.
