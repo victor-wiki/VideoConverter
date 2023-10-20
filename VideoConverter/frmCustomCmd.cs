@@ -26,7 +26,7 @@ namespace VideoConverter
 
         private void frmCustomCmd_Load(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(this.Command))
+            if (!string.IsNullOrEmpty(this.Command))
             {
                 this.txtCmd.Text = this.Command;
             }
@@ -61,6 +61,16 @@ namespace VideoConverter
         private void btnTargetFilePath_Click(object sender, EventArgs e)
         {
             this.InsertPlaceHolder("##TargetFile##");
-        }        
+        }
+
+        private void txtCmd_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lnkReferences_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.lnkReferences.Text);
+        }
     }
 }

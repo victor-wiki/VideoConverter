@@ -68,7 +68,7 @@
             this.panelQuality = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenInExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRemoveSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAppendFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.lblFinished = new System.Windows.Forms.Label();
@@ -76,6 +76,8 @@
             this.cboEncoder = new System.Windows.Forms.ComboBox();
             this.txtEncoder = new System.Windows.Forms.TextBox();
             this.lblEncoder = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -111,7 +113,7 @@
             // btnSelectFile
             // 
             this.btnSelectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectFile.Location = new System.Drawing.Point(875, 29);
+            this.btnSelectFile.Location = new System.Drawing.Point(875, 30);
             this.btnSelectFile.Name = "btnSelectFile";
             this.btnSelectFile.Size = new System.Drawing.Size(35, 23);
             this.btnSelectFile.TabIndex = 2;
@@ -160,7 +162,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(60, 6);
+            this.label5.Location = new System.Drawing.Point(103, 7);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 9;
@@ -189,7 +191,7 @@
             // 
             // nudHeight
             // 
-            this.nudHeight.Location = new System.Drawing.Point(77, 3);
+            this.nudHeight.Location = new System.Drawing.Point(120, 3);
             this.nudHeight.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -214,7 +216,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(60, 25);
+            this.label6.Location = new System.Drawing.Point(60, 5);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(437, 12);
             this.label6.TabIndex = 15;
@@ -243,6 +245,7 @@
             this.lvMessage.View = System.Windows.Forms.View.Details;
             this.lvMessage.DoubleClick += new System.EventHandler(this.lvMessage_DoubleClick);
             this.lvMessage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvMessage_MouseClick);
+            this.lvMessage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvMessage_MouseDown);
             // 
             // colFileName
             // 
@@ -391,16 +394,18 @@
             this.cboFileType.Name = "cboFileType";
             this.cboFileType.Size = new System.Drawing.Size(77, 20);
             this.cboFileType.TabIndex = 30;
-            this.cboFileType.SelectedIndexChanged += new System.EventHandler(this.cboVideoType_SelectedIndexChanged);
+            this.cboFileType.SelectedIndexChanged += new System.EventHandler(this.cboFileType_SelectedIndexChanged);
             // 
             // panelResolution
             // 
+            this.panelResolution.Controls.Add(this.label9);
+            this.panelResolution.Controls.Add(this.label8);
             this.panelResolution.Controls.Add(this.nudHeight);
             this.panelResolution.Controls.Add(this.label5);
             this.panelResolution.Controls.Add(this.nudWidth);
             this.panelResolution.Location = new System.Drawing.Point(171, 116);
             this.panelResolution.Name = "panelResolution";
-            this.panelResolution.Size = new System.Drawing.Size(195, 26);
+            this.panelResolution.Size = new System.Drawing.Size(238, 26);
             this.panelResolution.TabIndex = 31;
             this.panelResolution.Visible = false;
             // 
@@ -412,13 +417,12 @@
             this.panelQuality.Name = "panelQuality";
             this.panelQuality.Size = new System.Drawing.Size(575, 24);
             this.panelQuality.TabIndex = 32;
-            this.panelQuality.Visible = false;
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiPlay,
-            this.tsmiOpenExplorer,
+            this.tsmiOpenInExplorer,
             this.tsmiRemoveSelected,
             this.tsmiAppendFiles});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -431,12 +435,12 @@
             this.tsmiPlay.Text = "Play";
             this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
             // 
-            // tsmiOpenExplorer
+            // tsmiOpenInExplorer
             // 
-            this.tsmiOpenExplorer.Name = "tsmiOpenExplorer";
-            this.tsmiOpenExplorer.Size = new System.Drawing.Size(175, 22);
-            this.tsmiOpenExplorer.Text = "Open in explorer";
-            this.tsmiOpenExplorer.Click += new System.EventHandler(this.tsmiOpenExplorer_Click);
+            this.tsmiOpenInExplorer.Name = "tsmiOpenInExplorer";
+            this.tsmiOpenInExplorer.Size = new System.Drawing.Size(175, 22);
+            this.tsmiOpenInExplorer.Text = "Open in explorer";
+            this.tsmiOpenInExplorer.Click += new System.EventHandler(this.tsmiOpenInExplorer_Click);
             // 
             // tsmiRemoveSelected
             // 
@@ -498,6 +502,24 @@
             this.lblEncoder.Size = new System.Drawing.Size(53, 12);
             this.lblEncoder.TabIndex = 35;
             this.lblEncoder.Text = "Encoder:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(56, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 12);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "(width)";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(176, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "(height)";
             // 
             // frmMain
             // 
@@ -592,7 +614,7 @@
         private System.Windows.Forms.ColumnHeader colDuration;
         private System.Windows.Forms.ColumnHeader colProgress;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenExplorer;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenInExplorer;
         private System.Windows.Forms.ToolStripMenuItem tsmiPlay;
         private System.Windows.Forms.ToolStripMenuItem tsmiRemoveSelected;
         private System.Windows.Forms.Label lblFinished;
@@ -601,6 +623,8 @@
         private System.Windows.Forms.ComboBox cboEncoder;
         private System.Windows.Forms.TextBox txtEncoder;
         private System.Windows.Forms.Label lblEncoder;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 

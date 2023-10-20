@@ -34,6 +34,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSourceFilePath = new System.Windows.Forms.Button();
             this.btnTargetFilePath = new System.Windows.Forms.Button();
+            this.lnkReferences = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -53,14 +55,15 @@
             this.txtCmd.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtCmd.Location = new System.Drawing.Point(69, 13);
             this.txtCmd.Name = "txtCmd";
-            this.txtCmd.Size = new System.Drawing.Size(628, 57);
+            this.txtCmd.Size = new System.Drawing.Size(797, 60);
             this.txtCmd.TabIndex = 1;
             this.txtCmd.Text = "";
+            this.txtCmd.TextChanged += new System.EventHandler(this.txtCmd_TextChanged);
             // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(525, 76);
+            this.btnOK.Location = new System.Drawing.Point(694, 109);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -71,7 +74,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(622, 76);
+            this.btnCancel.Location = new System.Drawing.Point(791, 109);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
@@ -82,30 +85,54 @@
             // btnSourceFilePath
             // 
             this.btnSourceFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSourceFilePath.Location = new System.Drawing.Point(69, 75);
+            this.btnSourceFilePath.Location = new System.Drawing.Point(69, 82);
             this.btnSourceFilePath.Name = "btnSourceFilePath";
-            this.btnSourceFilePath.Size = new System.Drawing.Size(97, 23);
+            this.btnSourceFilePath.Size = new System.Drawing.Size(135, 23);
             this.btnSourceFilePath.TabIndex = 4;
-            this.btnSourceFilePath.Text = "Source File";
+            this.btnSourceFilePath.Text = "Source File Name";
             this.btnSourceFilePath.UseVisualStyleBackColor = true;
             this.btnSourceFilePath.Click += new System.EventHandler(this.btnSourceFilePath_Click);
             // 
             // btnTargetFilePath
             // 
             this.btnTargetFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTargetFilePath.Location = new System.Drawing.Point(185, 75);
+            this.btnTargetFilePath.Location = new System.Drawing.Point(223, 82);
             this.btnTargetFilePath.Name = "btnTargetFilePath";
-            this.btnTargetFilePath.Size = new System.Drawing.Size(91, 23);
+            this.btnTargetFilePath.Size = new System.Drawing.Size(135, 23);
             this.btnTargetFilePath.TabIndex = 5;
-            this.btnTargetFilePath.Text = "Target File";
+            this.btnTargetFilePath.Text = "Target File Name";
             this.btnTargetFilePath.UseVisualStyleBackColor = true;
             this.btnTargetFilePath.Click += new System.EventHandler(this.btnTargetFilePath_Click);
+            // 
+            // lnkReferences
+            // 
+            this.lnkReferences.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lnkReferences.AutoSize = true;
+            this.lnkReferences.Location = new System.Drawing.Point(144, 120);
+            this.lnkReferences.Name = "lnkReferences";
+            this.lnkReferences.Size = new System.Drawing.Size(269, 12);
+            this.lnkReferences.TabIndex = 6;
+            this.lnkReferences.TabStop = true;
+            this.lnkReferences.Text = "https://ffmpeg.org/ffmpeg.html#Video-Options";
+            this.lnkReferences.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkReferences_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(67, 120);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 12);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "References:";
             // 
             // frmCustomCmd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(709, 106);
+            this.ClientSize = new System.Drawing.Size(878, 139);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lnkReferences);
             this.Controls.Add(this.btnTargetFilePath);
             this.Controls.Add(this.btnSourceFilePath);
             this.Controls.Add(this.btnCancel);
@@ -129,5 +156,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSourceFilePath;
         private System.Windows.Forms.Button btnTargetFilePath;
+        private System.Windows.Forms.LinkLabel lnkReferences;
+        private System.Windows.Forms.Label label2;
     }
 }

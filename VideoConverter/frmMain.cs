@@ -143,7 +143,7 @@ namespace VideoConverter
             {
                 this.convertHandler.Option.Encoder = this.txtEncoder.Text;
             }
-            else
+            else if (this.cboEncoder.Text != nameof(Encoder.Original))
             {
                 this.convertHandler.Option.Encoder = this.cboEncoder.Text;
             }
@@ -256,7 +256,7 @@ namespace VideoConverter
         {
             this.BindComboItems(this.cboFileType, typeof(VideoType));
             this.BindComboItems(this.cboResolution, typeof(VideoResolution));
-            this.BindComboItems(this.cboQuality, typeof(VideoQuality));           
+            this.BindComboItems(this.cboQuality, typeof(VideoQuality));
 
             var configuredEncoders = ConfigurationManager.AppSettings["Encoders"];
 
@@ -264,22 +264,22 @@ namespace VideoConverter
 
             foreach (var item in encoders)
             {
-                if(item!= Encoder.Custom.ToString())
+                if (item != Encoder.Custom.ToString())
                 {
                     this.cboEncoder.Items.Add(item);
-                }               
+                }
             }
 
             if (!string.IsNullOrEmpty(configuredEncoders))
             {
-                foreach(var encoder in configuredEncoders.Split(','))
+                foreach (var encoder in configuredEncoders.Split(','))
                 {
                     if (!encoders.Any(e => e.ToLower() == encoder))
                     {
                         this.cboEncoder.Items.Add(encoder);
                     }
                 }
-            }               
+            }
 
             this.cboEncoder.Items.Add(Encoder.Custom.ToString());
 
@@ -345,19 +345,6 @@ namespace VideoConverter
 
                                 item.SubItems[1].Text = feedback.Content;
 
-                                if (item.SubItems[4].Tag == null)
-                                {
-                                    item.SubItems[4].Tag = DateTime.Now;
-                                }
-                                else
-                                {
-                                    DateTime dtStartTime = DateTime.Parse(item.SubItems[4].Tag.ToString());
-
-                                    TimeSpan ts = DateTime.Now - dtStartTime;
-
-                                    item.SubItems[4].Text = ts.ToString("c").Split('.')[0];
-                                }
-
                                 bool isFinished = false;
 
                                 if (videoInfo.TaskState == ConvertTaskState.Finished)
@@ -370,6 +357,19 @@ namespace VideoConverter
                                 else if (videoInfo.TaskState == ConvertTaskState.Error)
                                 {
                                     this.lvMessage.Items[videoInfo.Name].BackColor = Color.Pink;
+                                }
+
+                                if (item.SubItems[4].Tag == null)
+                                {
+                                    item.SubItems[4].Tag = DateTime.Now;
+                                }
+                                else if (!isFinished)
+                                {
+                                    DateTime dtStartTime = DateTime.Parse(item.SubItems[4].Tag.ToString());
+
+                                    TimeSpan ts = DateTime.Now - dtStartTime;
+
+                                    item.SubItems[4].Text = ts.ToString("c").Split('.')[0];
                                 }
 
                                 TimeSpan currentTime = videoInfo.CurrentTime;
@@ -452,9 +452,14 @@ namespace VideoConverter
             this.taskbarInstance.SetProgressState(Microsoft.WindowsAPICodePack.Taskbar.TaskbarProgressBarState.NoProgress);
         }
 
-        private void cboVideoType_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboFileType_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.txtFileType.Visible = this.cboFileType.Text == VideoType.Custom.ToString();
+
+            if (this.cboFileType.SelectedIndex != 0 && this.cboEncoder.SelectedIndex == 0)
+            {
+                this.cboEncoder.SelectedIndex = 1;
+            }
         }
 
         private void cboResolution_SelectedIndexChanged(object sender, EventArgs e)
@@ -464,7 +469,16 @@ namespace VideoConverter
 
         private void cboQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.panelQuality.Visible = this.cboQuality.Text == VideoQuality.Custom.ToString();
+            this.nudQuality.Enabled = this.cboQuality.Text == VideoQuality.Custom.ToString();
+
+            if (this.cboQuality.Text != nameof(VideoQuality.Custom))
+            {
+                this.nudQuality.Value = (int)Enum.Parse(typeof(VideoQuality), this.cboQuality.Text);
+            }
+            else
+            {
+                this.nudQuality.Value = 0;
+            }
         }
 
         private void frmMain_SizeChanged(object sender, EventArgs e)
@@ -476,17 +490,17 @@ namespace VideoConverter
         {
             if (e.Button == MouseButtons.Right)
             {
+                this.SetContextMenuItemVisible(true);
+
                 if (this.lvMessage.FocusedItem.Bounds.Contains(e.Location))
                 {
-                    VideoInfo videoInfo = this.lvMessage.FocusedItem.Tag as VideoInfo;
-
                     this.contextMenuStrip1.Show(Cursor.Position);
                 }
             }
         }
 
 
-        private void tsmiOpenExplorer_Click(object sender, EventArgs e)
+        private void tsmiOpenInExplorer_Click(object sender, EventArgs e)
         {
             this.OpenFileInExplorer();
         }
@@ -601,7 +615,12 @@ namespace VideoConverter
                 {
                     if (!existingFilePaths.Contains(filePath) && !this.convertHandler.FilePaths.Contains(filePath))
                     {
-                        this.txtFile.AppendText($"|{filePath}");
+                        if (!string.IsNullOrEmpty(this.txtFile.Text))
+                        {
+                            this.txtFile.AppendText("|");
+                        }
+
+                        this.txtFile.AppendText(filePath);
 
                         this.AddListItem(filePath);
 
@@ -620,6 +639,25 @@ namespace VideoConverter
         private void cboEncoder_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.txtEncoder.Visible = this.cboEncoder.Text == Encoder.Custom.ToString();
+        }
+
+        private void lvMessage_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                bool hasFocusedItem = this.lvMessage.FocusedItem != null && this.lvMessage.FocusedItem.Bounds.Contains(e.Location);
+
+                this.SetContextMenuItemVisible(hasFocusedItem);
+
+                this.contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+
+        private void SetContextMenuItemVisible(bool hasFocusedItem)
+        {
+            this.tsmiOpenInExplorer.Visible = hasFocusedItem;
+            this.tsmiPlay.Visible = hasFocusedItem;
+            this.tsmiRemoveSelected.Visible = hasFocusedItem;
         }
     }
 
@@ -658,6 +696,7 @@ namespace VideoConverter
 
     public enum Encoder
     {
+        Original = 0,
         libx264 = 1,
         libx265 = 2,
         mpeg4 = 3,
