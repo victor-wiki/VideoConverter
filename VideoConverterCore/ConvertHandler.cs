@@ -87,6 +87,23 @@ namespace VideoConvertCore
             }
         }
 
+        private bool IsOnlyForScaleOrQuality()
+        {
+            if (string.IsNullOrEmpty(this.Option.FileType) && string.IsNullOrEmpty(this.Option.Encoder))
+            {
+                if (this.Option.ResolutionWidth > 0 && this.Option.ResolutionHeight > 0)
+                {
+                    return true;
+                }
+                else if (this.Option.Quality > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void Execute(string saveFolder, string filePath)
         {
             FileInfo file = new FileInfo(filePath);
@@ -151,33 +168,43 @@ namespace VideoConvertCore
                 }
                 else
                 {
-                    string resolution = "";
-
-                    if (this.Option.ResolutionWidth.HasValue && this.Option.ResolutionHeight.HasValue)
+                    if (this.IsOnlyForScaleOrQuality())
                     {
-                        resolution = $"-s {this.Option.ResolutionWidth.Value}x{this.Option.ResolutionHeight.Value}";
-                    };
+                        string scale = this.Option.ResolutionWidth > 0 && this.Option.ResolutionHeight > 0 ? $" -vf scale={this.Option.ResolutionWidth.Value}:{this.Option.ResolutionHeight.Value} " : "";
+                        string quality = this.Option.Quality == 0 ? "" : $" -crf {this.Option.Quality} ";
 
-                    if (!string.IsNullOrEmpty(this.DefaultCommandTemplate))
-                    {
-                        args = this.DefaultCommandTemplate
-                               .Replace("##SourceFile##", $"\"{fileName}\"")
-                               .Replace("##TargetFile##", $"\"{targetFileName}\"")
-                               .Replace("##ThreadNumber##", this.Setting.ThreadNumber.ToString())
-                               .Replace("##Quality##", this.Option.Quality.ToString())
-                               .Replace("##Resolution##", resolution)
-                               .Replace("##Encoder##", this.Option.Encoder);
+                        args = $"-i \"{fileName}\"{scale}{quality} \"{targetFileName}\"";
                     }
                     else
                     {
-                        string threadNumber = "";
+                        string resolution = "";
 
-                        if (!this.Setting.UseDefaultThreadNumber)
+                        if (this.Option.ResolutionWidth.HasValue && this.Option.ResolutionHeight.HasValue)
                         {
-                            threadNumber = $" -threads {this.Setting.ThreadNumber} ";
+                            resolution = $"-s {this.Option.ResolutionWidth.Value}x{this.Option.ResolutionHeight.Value}";
                         }
 
-                        args = $"-i \"{fileName}\"{threadNumber}-c:v libx264 -crf {this.Option.Quality} {resolution} \"{targetFileName}\"";
+                        if (!string.IsNullOrEmpty(this.DefaultCommandTemplate))
+                        {
+                            args = this.DefaultCommandTemplate
+                                   .Replace("##SourceFile##", $"\"{fileName}\"")
+                                   .Replace("##TargetFile##", $"\"{targetFileName}\"")
+                                   .Replace("##ThreadNumber##", this.Setting.ThreadNumber.ToString())
+                                   .Replace("##Quality##", this.Option.Quality.ToString())
+                                   .Replace("##Resolution##", resolution)
+                                   .Replace("##Encoder##", this.Option.Encoder);
+                        }
+                        else
+                        {
+                            string threadNumber = "";
+
+                            if (!this.Setting.UseDefaultThreadNumber)
+                            {
+                                threadNumber = $" -threads {this.Setting.ThreadNumber} ";
+                            }
+
+                            args = $"-i \"{fileName}\"{threadNumber}-c:v libx264 -crf {this.Option.Quality} {resolution} \"{targetFileName}\"";
+                        }
                     }
                 }
 
@@ -238,7 +265,7 @@ namespace VideoConvertCore
                                 File.Delete(exeFilePath);
                             }
                             catch (Exception ex)
-                            {                               
+                            {
                             }
                         }
 
