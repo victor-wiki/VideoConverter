@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -92,6 +92,12 @@
     <Compile Include="frmCustomCmd.Designer.cs">
       <DependentUpon>frmCustomCmd.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCutOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCutOption.Designer.cs">
+      <DependentUpon>frmCutOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCustomCmd.resx">
       <DependentUpon>frmCustomCmd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCutOption.resx">
+      <DependentUpon>frmCutOption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

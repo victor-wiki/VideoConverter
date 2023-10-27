@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -71,6 +71,13 @@ namespace VideoConverter
             }
 
             string[] filePaths = strFilePath.Split('|');
+
+            if (filePaths.Length == 0)
+            {
+                MessageBox.Show("Please select file(s) first!");
+
+                return;
+            }
 
             foreach (string filePath in filePaths)
             {
@@ -153,7 +160,7 @@ namespace VideoConverter
             ConvertSetting setting = SettingManager.GetSetting();
             this.convertHandler.Setting = setting;
 
-            this.convertHandler.DefaultCommandTemplate = ConfigurationManager.AppSettings["DefaultCommandTemplate"];
+            this.convertHandler.ConvertCommandTemplate = ConfigurationManager.AppSettings["ConvertCommandTemplate"];
 
             LogHelper.EnableDebug = setting.EnableDebug;
             FeedbackHelper.EnableLog = setting.EnableLog;
@@ -217,11 +224,20 @@ namespace VideoConverter
 
         private void btnCustomCmd_Click(object sender, EventArgs e)
         {
-            frmCustomCmd frmCustomCmd = new frmCustomCmd(this.convertHandler.Option.CustomCommand);
+            frmCustomCmd frmCustomCmd = new frmCustomCmd(this.convertHandler.Option.CustomCommandType, this.convertHandler.Option.CustomCommand);
+
+            if (this.convertHandler.Option.CutOption != null)
+            {
+                frmCustomCmd.CutOption = this.convertHandler.Option.CutOption;
+            }
+
             DialogResult result = frmCustomCmd.ShowDialog();
+
             if (result == DialogResult.OK)
             {
+                this.convertHandler.Option.CustomCommandType = frmCustomCmd.CustomCommandType;
                 this.convertHandler.Option.CustomCommand = frmCustomCmd.Command;
+                this.convertHandler.Option.CutOption = frmCustomCmd.CutOption;
             }
         }
 
@@ -442,7 +458,10 @@ namespace VideoConverter
                 }
                 else
                 {
-                    MessageBox.Show("Done", "Information");
+                    if(!this.chkNotShowMessageDialog.Checked)
+                    {
+                        MessageBox.Show("Done", "Information");
+                    }                   
                 }
             }
         }

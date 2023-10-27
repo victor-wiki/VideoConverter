@@ -1,4 +1,4 @@
-﻿namespace VideoConverter
+namespace VideoConverter
 {
     partial class frmMain
     {
@@ -65,6 +65,8 @@
             this.cboResolution = new System.Windows.Forms.ComboBox();
             this.cboFileType = new System.Windows.Forms.ComboBox();
             this.panelResolution = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.panelQuality = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +78,7 @@
             this.cboEncoder = new System.Windows.Forms.ComboBox();
             this.txtEncoder = new System.Windows.Forms.TextBox();
             this.lblEncoder = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.chkNotShowMessageDialog = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
@@ -107,13 +108,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFile.Location = new System.Drawing.Point(83, 31);
             this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(785, 21);
+            this.txtFile.Size = new System.Drawing.Size(796, 21);
             this.txtFile.TabIndex = 1;
             // 
             // btnSelectFile
             // 
             this.btnSelectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectFile.Location = new System.Drawing.Point(875, 30);
+            this.btnSelectFile.Location = new System.Drawing.Point(886, 30);
             this.btnSelectFile.Name = "btnSelectFile";
             this.btnSelectFile.Size = new System.Drawing.Size(35, 23);
             this.btnSelectFile.TabIndex = 2;
@@ -133,7 +134,7 @@
             // btnSaveFolder
             // 
             this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFolder.Location = new System.Drawing.Point(875, 57);
+            this.btnSaveFolder.Location = new System.Drawing.Point(886, 57);
             this.btnSaveFolder.Name = "btnSaveFolder";
             this.btnSaveFolder.Size = new System.Drawing.Size(35, 23);
             this.btnSaveFolder.TabIndex = 5;
@@ -147,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSaveFolder.Location = new System.Drawing.Point(83, 58);
             this.txtSaveFolder.Name = "txtSaveFolder";
-            this.txtSaveFolder.Size = new System.Drawing.Size(785, 21);
+            this.txtSaveFolder.Size = new System.Drawing.Size(796, 21);
             this.txtSaveFolder.TabIndex = 4;
             // 
             // label3
@@ -239,7 +240,7 @@
             this.lvMessage.HideSelection = false;
             this.lvMessage.Location = new System.Drawing.Point(5, 201);
             this.lvMessage.Name = "lvMessage";
-            this.lvMessage.Size = new System.Drawing.Size(912, 239);
+            this.lvMessage.Size = new System.Drawing.Size(923, 239);
             this.lvMessage.TabIndex = 16;
             this.lvMessage.UseCompatibleStateImageBehavior = false;
             this.lvMessage.View = System.Windows.Forms.View.Details;
@@ -282,7 +283,7 @@
             // btnExecute
             // 
             this.btnExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecute.Location = new System.Drawing.Point(856, 172);
+            this.btnExecute.Location = new System.Drawing.Point(867, 172);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(55, 23);
             this.btnExecute.TabIndex = 17;
@@ -311,7 +312,7 @@
             // 
             this.chkCustom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCustom.AutoSize = true;
-            this.chkCustom.Location = new System.Drawing.Point(770, 177);
+            this.chkCustom.Location = new System.Drawing.Point(781, 177);
             this.chkCustom.Name = "chkCustom";
             this.chkCustom.Size = new System.Drawing.Size(15, 14);
             this.chkCustom.TabIndex = 22;
@@ -322,7 +323,7 @@
             // 
             this.btnCustomCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomCmd.Enabled = false;
-            this.btnCustomCmd.Location = new System.Drawing.Point(791, 172);
+            this.btnCustomCmd.Location = new System.Drawing.Point(802, 172);
             this.btnCustomCmd.Name = "btnCustomCmd";
             this.btnCustomCmd.Size = new System.Drawing.Size(59, 23);
             this.btnCustomCmd.TabIndex = 21;
@@ -334,7 +335,7 @@
             // 
             this.chkShutdownAfterProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShutdownAfterProcess.AutoSize = true;
-            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(771, 446);
+            this.chkShutdownAfterProcess.Location = new System.Drawing.Point(782, 446);
             this.chkShutdownAfterProcess.Name = "chkShutdownAfterProcess";
             this.chkShutdownAfterProcess.Size = new System.Drawing.Size(138, 16);
             this.chkShutdownAfterProcess.TabIndex = 23;
@@ -347,7 +348,7 @@
             this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(917, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(928, 25);
             this.menuStrip1.TabIndex = 26;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -362,7 +363,7 @@
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
@@ -408,6 +409,24 @@
             this.panelResolution.Size = new System.Drawing.Size(238, 26);
             this.panelResolution.TabIndex = 31;
             this.panelResolution.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(176, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "(height)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(56, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 12);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "(width)";
             // 
             // panelQuality
             // 
@@ -503,29 +522,23 @@
             this.lblEncoder.TabIndex = 35;
             this.lblEncoder.Text = "Encoder:";
             // 
-            // label8
+            // chkNotShowMessageDialog
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(56, 7);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 12);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "(width)";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(176, 7);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 12);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "(height)";
+            this.chkNotShowMessageDialog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkNotShowMessageDialog.AutoSize = true;
+            this.chkNotShowMessageDialog.Location = new System.Drawing.Point(546, 446);
+            this.chkNotShowMessageDialog.Name = "chkNotShowMessageDialog";
+            this.chkNotShowMessageDialog.Size = new System.Drawing.Size(174, 16);
+            this.chkNotShowMessageDialog.TabIndex = 38;
+            this.chkNotShowMessageDialog.Text = "Don\'t show message dialog";
+            this.chkNotShowMessageDialog.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 464);
+            this.ClientSize = new System.Drawing.Size(928, 464);
+            this.Controls.Add(this.chkNotShowMessageDialog);
             this.Controls.Add(this.cboEncoder);
             this.Controls.Add(this.txtEncoder);
             this.Controls.Add(this.lblEncoder);
@@ -625,6 +638,7 @@
         private System.Windows.Forms.Label lblEncoder;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox chkNotShowMessageDialog;
     }
 }
 
