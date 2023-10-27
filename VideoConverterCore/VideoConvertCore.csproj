@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertHandler.cs" />
+    <Compile Include="Model\CutOption.cs" />
     <Compile Include="Helper\FeedbackHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Helper\VideoHelper.cs" />

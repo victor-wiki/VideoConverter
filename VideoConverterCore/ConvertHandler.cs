@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -25,7 +25,7 @@ namespace VideoConvertCore
 
         public ConvertSetting Setting = new ConvertSetting();
         public ConvertOption Option = new ConvertOption();
-        public string DefaultCommandTemplate;
+        public string ConvertCommandTemplate;
 
         public List<string> FilePaths { get; set; } = new List<string>();
 
@@ -107,7 +107,7 @@ namespace VideoConvertCore
         private void Execute(string saveFolder, string filePath)
         {
             FileInfo file = new FileInfo(filePath);
-            VideoInfo videoInfo = new VideoInfo(file.FullName);
+            VideoInfo videoInfo = VideoHelper.GetVideoInfo(filePath);
             string sourceFolder = file.DirectoryName;
 
             string exeFilePath = Path.Combine(sourceFolder, this.toolFileName);
@@ -165,6 +165,36 @@ namespace VideoConvertCore
                 {
                     args = this.Option.CustomCommand.Replace(this.toolFileName, "").Replace(Path.GetFileNameWithoutExtension(this.toolFileName), "");
                     args = args.Replace("##SourceFile##", $"\"{fileName}\"").Replace("##TargetFile##", $"\"{targetFileName}\"");
+
+                    if (this.Option.CustomCommandType == CustomCommandType.Cut && this.Option.CutOption != null)
+                    {
+                        CutOption cutOption = this.Option.CutOption;
+
+                        args = args.Replace("##StartDuration##", cutOption.Starting.ToString());
+
+                        double duration = 0;
+
+                        if (cutOption.CutType == CutType.Normal)
+                        {
+                            duration = cutOption.Duration;
+
+                            if (duration == 0)
+                            {
+                                duration = videoInfo.Duration.TotalSeconds - cutOption.Starting;
+                            }
+                        }
+                        else if (cutOption.CutType == CutType.IntroOutro)
+                        {
+                            duration = videoInfo.Duration.TotalSeconds - cutOption.Starting - cutOption.Duration;
+
+                            if (duration <= 0)
+                            {
+                                duration = videoInfo.Duration.TotalSeconds - cutOption.Starting;
+                            }
+                        }
+
+                        args = args.Replace("##Duration##", duration.ToString());
+                    }
                 }
                 else
                 {
@@ -184,9 +214,9 @@ namespace VideoConvertCore
                             resolution = $"-s {this.Option.ResolutionWidth.Value}x{this.Option.ResolutionHeight.Value}";
                         }
 
-                        if (!string.IsNullOrEmpty(this.DefaultCommandTemplate))
+                        if (!string.IsNullOrEmpty(this.ConvertCommandTemplate))
                         {
-                            args = this.DefaultCommandTemplate
+                            args = this.ConvertCommandTemplate
                                    .Replace("##SourceFile##", $"\"{fileName}\"")
                                    .Replace("##TargetFile##", $"\"{targetFileName}\"")
                                    .Replace("##ThreadNumber##", this.Setting.ThreadNumber.ToString())
@@ -280,12 +310,14 @@ namespace VideoConvertCore
 
                         if (takeCount > 0)
                         {
-                            var fps = this.dictFileConverted.Where(item => item.Value == ConvertTaskState.Ready).Take(takeCount);
+                            var fps = this.dictFileConverted.Where(item => item.Value == ConvertTaskState.Ready).Take(takeCount).ToList();
 
                             if (fps.Any())
                             {
-                                foreach (var fp in fps)
+                                for (int j = 0; j < fps.Count; j++)
                                 {
+                                    var fp = fps[j];
+
                                     if (!string.IsNullOrEmpty(fp.Key))
                                     {
                                         this.dictFileConverted[fp.Key] = ConvertTaskState.Running;
