@@ -24,9 +24,19 @@ namespace VideoConvertCore
             var inputFile = new MediaFile { Filename = fileName };
             Engine.GetMetadata(inputFile);
 
-            var size = inputFile.Metadata.VideoData.FrameSize.Split(new[] { 'x' }).Select(o => int.Parse(o)).ToArray();
+            var video = inputFile.Metadata.VideoData;           
+          
+            int width = 0;
+            int height = 0;
+            
+            if(video != null)
+            {
+                var size = video.FrameSize.Split(new[] { 'x' }).Select(o => int.Parse(o)).ToArray();
+                width = size[0];
+                height = size[1];
+            }                     
 
-            return new VideoInfo(fileName) { Width= size[0], Height= size[1], Duration= inputFile.Metadata.Duration };
+            return new VideoInfo(fileName) { Width= width, Height= height, Duration= inputFile.Metadata.Duration };
         }
     }
 }
