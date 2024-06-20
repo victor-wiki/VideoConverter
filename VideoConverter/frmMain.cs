@@ -421,7 +421,7 @@ namespace VideoConverter
 
                     this.lvMessage.Update();
 
-                    this.lblFinished.Text = $"{this.finishedCount}/{this.lvMessage.Items.Count}";
+                    this.ShowFinishedStatus();
 
                     if (Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.IsPlatformSupported)
                     {
@@ -608,6 +608,26 @@ namespace VideoConverter
             {
                 this.btnExecute.Enabled = true;
             }
+
+            this.UpdateFinishedCount();
+            this.ShowFinishedStatus();
+        }
+
+        private void UpdateFinishedCount()
+        {
+            int count = 0;
+
+            foreach (ListViewItem item in this.lvMessage.Items)
+            {
+                VideoInfo v = item.Tag as VideoInfo;
+
+                if (v != null && v.TaskState == ConvertTaskState.Finished)
+                {
+                    count++;
+                }
+            }
+
+            this.finishedCount = count;
         }
 
         private void tsmiAppendFiles_Click(object sender, EventArgs e)
@@ -651,8 +671,13 @@ namespace VideoConverter
 
                 this.lvMessage.Update();
 
-                this.lblFinished.Text = $"{this.finishedCount}/{this.lvMessage.Items.Count}";
+                this.ShowFinishedStatus();
             }
+        }
+
+        private void ShowFinishedStatus()
+        {
+            this.lblFinished.Text = $"{this.finishedCount}/{this.lvMessage.Items.Count}";
         }
 
         private void cboEncoder_SelectedIndexChanged(object sender, EventArgs e)
@@ -677,6 +702,11 @@ namespace VideoConverter
             this.tsmiOpenInExplorer.Visible = hasFocusedItem;
             this.tsmiPlay.Visible = hasFocusedItem;
             this.tsmiRemoveSelected.Visible = hasFocusedItem;
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 
