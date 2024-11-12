@@ -32,13 +32,14 @@ namespace VideoConverter
             this.txtCmd = new System.Windows.Forms.RichTextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSourceFilePath = new System.Windows.Forms.Button();
-            this.btnTargetFilePath = new System.Windows.Forms.Button();
+            this.btnSourceFileName = new System.Windows.Forms.Button();
+            this.btnTargetFileName = new System.Windows.Forms.Button();
             this.lnkReferences = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cboType = new System.Windows.Forms.ComboBox();
             this.btnOption = new System.Windows.Forms.Button();
+            this.btnSourceFileNameWithoutExt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -85,27 +86,27 @@ namespace VideoConverter
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnSourceFilePath
+            // btnSourceFileName
             // 
-            this.btnSourceFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSourceFilePath.Location = new System.Drawing.Point(69, 126);
-            this.btnSourceFilePath.Name = "btnSourceFilePath";
-            this.btnSourceFilePath.Size = new System.Drawing.Size(135, 23);
-            this.btnSourceFilePath.TabIndex = 4;
-            this.btnSourceFilePath.Text = "Source File Name";
-            this.btnSourceFilePath.UseVisualStyleBackColor = true;
-            this.btnSourceFilePath.Click += new System.EventHandler(this.btnSourceFilePath_Click);
+            this.btnSourceFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSourceFileName.Location = new System.Drawing.Point(69, 126);
+            this.btnSourceFileName.Name = "btnSourceFileName";
+            this.btnSourceFileName.Size = new System.Drawing.Size(135, 23);
+            this.btnSourceFileName.TabIndex = 4;
+            this.btnSourceFileName.Text = "Source File Name";
+            this.btnSourceFileName.UseVisualStyleBackColor = true;
+            this.btnSourceFileName.Click += new System.EventHandler(this.btnSourceFileName_Click);
             // 
-            // btnTargetFilePath
+            // btnTargetFileName
             // 
-            this.btnTargetFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTargetFilePath.Location = new System.Drawing.Point(223, 126);
-            this.btnTargetFilePath.Name = "btnTargetFilePath";
-            this.btnTargetFilePath.Size = new System.Drawing.Size(135, 23);
-            this.btnTargetFilePath.TabIndex = 5;
-            this.btnTargetFilePath.Text = "Target File Name";
-            this.btnTargetFilePath.UseVisualStyleBackColor = true;
-            this.btnTargetFilePath.Click += new System.EventHandler(this.btnTargetFilePath_Click);
+            this.btnTargetFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTargetFileName.Location = new System.Drawing.Point(223, 126);
+            this.btnTargetFileName.Name = "btnTargetFileName";
+            this.btnTargetFileName.Size = new System.Drawing.Size(135, 23);
+            this.btnTargetFileName.TabIndex = 5;
+            this.btnTargetFileName.Text = "Target File Name";
+            this.btnTargetFileName.UseVisualStyleBackColor = true;
+            this.btnTargetFileName.Click += new System.EventHandler(this.btnTargetFileName_Click);
             // 
             // lnkReferences
             // 
@@ -160,18 +161,30 @@ namespace VideoConverter
             this.btnOption.Visible = false;
             this.btnOption.Click += new System.EventHandler(this.btnOption_Click);
             // 
+            // btnSourceFileNameWithoutExt
+            // 
+            this.btnSourceFileNameWithoutExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSourceFileNameWithoutExt.Location = new System.Drawing.Point(378, 126);
+            this.btnSourceFileNameWithoutExt.Name = "btnSourceFileNameWithoutExt";
+            this.btnSourceFileNameWithoutExt.Size = new System.Drawing.Size(235, 23);
+            this.btnSourceFileNameWithoutExt.TabIndex = 11;
+            this.btnSourceFileNameWithoutExt.Text = "Source File Name without Extension";
+            this.btnSourceFileNameWithoutExt.UseVisualStyleBackColor = true;
+            this.btnSourceFileNameWithoutExt.Click += new System.EventHandler(this.btnSourceFileNameWithoutExt_Click);
+            // 
             // frmCustomCmd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(878, 189);
+            this.Controls.Add(this.btnSourceFileNameWithoutExt);
             this.Controls.Add(this.btnOption);
             this.Controls.Add(this.cboType);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lnkReferences);
-            this.Controls.Add(this.btnTargetFilePath);
-            this.Controls.Add(this.btnSourceFilePath);
+            this.Controls.Add(this.btnTargetFileName);
+            this.Controls.Add(this.btnSourceFileName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtCmd);
@@ -191,12 +204,13 @@ namespace VideoConverter
         private System.Windows.Forms.RichTextBox txtCmd;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnSourceFilePath;
-        private System.Windows.Forms.Button btnTargetFilePath;
+        private System.Windows.Forms.Button btnSourceFileName;
+        private System.Windows.Forms.Button btnTargetFileName;
         private System.Windows.Forms.LinkLabel lnkReferences;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboType;
         private System.Windows.Forms.Button btnOption;
+        private System.Windows.Forms.Button btnSourceFileNameWithoutExt;
     }
 }

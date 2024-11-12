@@ -16,6 +16,6 @@ namespace VideoConvertCore
     public enum CustomCommandType
     {
         Custom,
-        Cut
+        Cut  
     }
 }

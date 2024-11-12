@@ -164,7 +164,9 @@ namespace VideoConvertCore
                 if (!string.IsNullOrEmpty(this.Option.CustomCommand))
                 {
                     args = this.Option.CustomCommand.Replace(this.toolFileName, "").Replace(Path.GetFileNameWithoutExtension(this.toolFileName), "");
-                    args = args.Replace("##SourceFile##", $"\"{fileName}\"").Replace("##TargetFile##", $"\"{targetFileName}\"");
+                    args = args.Replace("##SourceFile##", $"\"{fileName}\"")
+                               .Replace("##TargetFile##", $"\"{targetFileName}\"")
+                               .Replace("##SourceFileWithoutExt##", $"\"{Path.GetFileNameWithoutExtension(fileName)}\"") ;
 
                     if (this.Option.CustomCommandType == CustomCommandType.Cut && this.Option.CutOption != null)
                     {

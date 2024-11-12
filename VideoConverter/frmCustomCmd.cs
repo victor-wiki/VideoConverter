@@ -65,7 +65,7 @@ namespace VideoConverter
             this.Close();
         }
 
-        private void btnSourceFilePath_Click(object sender, EventArgs e)
+        private void btnSourceFileName_Click(object sender, EventArgs e)
         {
             this.InsertPlaceHolder("##SourceFile##");
         }
@@ -80,7 +80,7 @@ namespace VideoConverter
             this.txtCmd.SelectedText = placeHolder;
         }
 
-        private void btnTargetFilePath_Click(object sender, EventArgs e)
+        private void btnTargetFileName_Click(object sender, EventArgs e)
         {
             this.InsertPlaceHolder("##TargetFile##");
         }
@@ -125,6 +125,11 @@ namespace VideoConverter
                     this.CutOption = frm.Option;
                 }
             }
+        }
+
+        private void btnSourceFileNameWithoutExt_Click(object sender, EventArgs e)
+        {
+            this.InsertPlaceHolder("##SourceFileWithoutExt##");
         }
     }
 }
